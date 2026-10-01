@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sms-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sms}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sms}
+      POSTGRES_DB: ${POSTGRES_DB:-sms}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - sms-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sms} -d ${POSTGRES_DB:-sms}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  sms-pgdata:
