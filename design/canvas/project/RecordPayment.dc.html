@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — Record payment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#115e59}
+*:focus-visible{outline:2px solid #115e59;outline-offset:2px}
+input:focus{outline:2px solid #115e59;outline-offset:1px}
+.btn-outline:hover{background:#f4f4f5}
+.btn-primary:hover{background:#0d4f4b}
+.btn-ghost:hover{background:#f4f4f5}
+</style>
+</helmet>
+<div style="position: relative; width: 100%; min-height: 1120px; overflow: hidden; background: #ffffff; color: #09090b; font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px;">
+  <div aria-hidden="true" inert="" style="pointer-events: none;">
+    <dc-import name="StudentProfile" tab="finance" hint-size="100%,1120px"></dc-import>
+  </div>
+  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
+
+  <div role="dialog" aria-modal="true" aria-labelledby="rp-title" aria-describedby="rp-desc" style="position: absolute; top: 96px; left: 50%; transform: translateX(-50%); width: 480px; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 16px; background: #ffffff; border: 1px solid #e4e4e7; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.06);">
+    <a href="StudentProfile.dc.html" class="btn-ghost" aria-label="Close" style="position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; color: #52525b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></a>
+
+    <div style="padding-right: 32px;">
+      <h2 id="rp-title" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">Record payment</h2>
+      <p id="rp-desc" style="margin: 4px 0 0; color: #52525b;">Aisha Rahman · <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">SMS-2026-0001</span> · Student Finance</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="rp-amount" style="font-weight: 500;">Amount</label>
+        <div style="position: relative;">
+          <span aria-hidden="true" style="position: absolute; left: 10px; top: 6px; color: #52525b; font-family: 'Geist Mono', monospace; font-size: 13px;">£</span>
+          <input id="rp-amount" type="text" inputmode="decimal" value="{{amount}}" onChange="{{onAmount}}" aria-invalid="{{amountInvalidStr}}" aria-describedby="rp-amount-help" style="width: 100%; height: 32px; box-sizing: border-box; padding: 0 10px 0 24px; border: 1px solid {{amountBorder}}; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; text-align: right; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+        </div>
+        <p id="rp-amount-help" style="margin: 0; font-size: 12px; line-height: 16px; color: {{amountHelpColor}}; font-weight: {{amountHelpWeight}};">{{amountHelp}}</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="rp-date" style="font-weight: 500;">Payment date</label>
+        <input id="rp-date" type="text" value="22 Oct 2026" aria-describedby="rp-date-help" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+        <p id="rp-date-help" style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">Today or earlier. Not in the future.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="rp-ref" style="font-weight: 500;">Reference</label>
+        <input id="rp-ref" type="text" value="{{reference}}" aria-invalid="{{dupStr}}" aria-describedby="rp-ref-msg" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid {{refBorder}}; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+        <sc-if value="{{notDup}}" hint-placeholder-val="{{true}}">
+          <p id="rp-ref-msg" style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">As shown on the bank statement. Must be unique.</p>
+        </sc-if>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="rp-method" style="font-weight: 500;">Method</label>
+        <button id="rp-method" type="button" aria-haspopup="listbox" style="height: 32px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 14px/20px 'Geist', sans-serif; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">Bank transfer (BACS)<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+      <sc-if value="{{isDup}}" hint-placeholder-val="{{false}}">
+        <p id="rp-ref-msg" role="alert" style="grid-column: 1 / -1; margin: -8px 0 0; display: flex; gap: 4px; align-items: flex-start; font-size: 12px; line-height: 16px; font-weight: 500; color: #dc2626;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg><span>Reference BACS-77812 is already recorded for Daniel Okafor on 2 Oct 2026. Check the statement, or <a href="#" style="color: #115e59;">view that payment</a>.</span></p>
+      </sc-if>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-weight: 500;">Applied to</span>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 32px; padding: 0 10px; border: 1px solid #e4e4e7; border-radius: 6px; background: #f4f4f5;">
+        <span>Instalment 2 · due 1 Oct 2026</span>
+        <span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue <span style="opacity: 0.7;">·</span> <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">21 days</span></span>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">Payments clear the oldest unpaid instalment first.</p>
+    </div>
+
+    <div aria-live="polite" style="border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 10px 12px; background: #fafafa; border-bottom: 1px solid #e4e4e7;">
+        <span style="font-weight: 500;">New balance after this payment</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 600; color: {{newDueColor}};">{{newDue}}</span>
+      </div>
+      <dl style="margin: 0; padding: 8px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;"><dt style="color: #52525b;">Overdue now</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace;">£2,383.75</dd></div>
+        <div style="display: flex; justify-content: space-between;"><dt style="color: #52525b;">This payment</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace;">− {{amountFmt}}</dd></div>
+        <div style="display: flex; justify-content: space-between;"><dt style="color: #52525b;">{{statusLine}}</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; color: #52525b;">{{remaining}}</dd></div>
+      </dl>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 8px; padding-top: 4px;">
+      <a href="StudentProfile.dc.html" class="btn-outline" style="height: 32px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font-weight: 500; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Cancel</a>
+      <button type="button" class="btn-primary" style="height: 32px; display: inline-flex; align-items: center; padding: 0 12px; border: 0; border-radius: 6px; background: #115e59; color: #ffffff; font: 500 14px/20px 'Geist', sans-serif; cursor: pointer;">Record {{amountFmt}}</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["default","duplicate-reference"],"default":"default"},"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { amount: '500.00' };
+  }
+
+  gbp(n) {
+    return '£' + n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  renderVals() {
+    var self = this;
+    var dup = this.props.variant === 'duplicate-reference';
+    var raw = String(this.state.amount || '').replace(/[£,\s]/g, '');
+    var valid = /^\d+(\.\d{1,2})?$/.test(raw) && Number(raw) > 0;
+    var amt = valid ? Number(raw) : 0;
+    var OVERDUE = 2383.75, TOTAL = 7151.25;
+    var newDue = Math.max(0, OVERDUE - amt);
+    var rest = TOTAL - amt;
+    var help = 'Up to £7,151.25 (the balance for 2026/27).';
+    if (!valid) help = 'Enter an amount in pounds, for example 500.00.';
+    else if (amt > TOTAL) help = 'More than the balance — the extra £' + (amt - TOTAL).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' becomes credit.';
+    return {
+      amount: this.state.amount,
+      onAmount: function (e) { self.setState({ amount: e.target.value }); },
+      amountInvalidStr: valid ? 'false' : 'true',
+      amountBorder: valid ? '#8a8a94' : '#dc2626',
+      amountHelp: help,
+      amountHelpColor: valid ? '#52525b' : '#dc2626',
+      amountHelpWeight: valid ? '400' : '500',
+      amountFmt: this.gbp(amt),
+      newDue: this.gbp(newDue),
+      newDueColor: newDue > 0 ? '#991b1b' : '#09090b',
+      statusLine: newDue > 0 ? 'Still overdue · total left for 2026/27' : 'Overdue cleared · total left for 2026/27',
+      remaining: rest >= 0 ? this.gbp(rest) : 'Credit ' + this.gbp(-rest),
+      reference: dup ? 'BACS-77812' : 'BACS-77904',
+      isDup: dup, notDup: !dup, dupStr: dup ? 'true' : 'false',
+      refBorder: dup ? '#dc2626' : '#8a8a94'
+    };
+  }
+}
+</script>
+</body>
+</html>

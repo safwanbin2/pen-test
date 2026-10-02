@@ -66,23 +66,22 @@ Features: F-FND-02, F-FND-04, F-FND-08, F-FND-09 (schema covers all P0 + P1 tabl
 ### Schema (`prisma/schema.prisma`)
 - `Programme` (code unique, name, level)
 - `ProgrammeFee` (programmeId, academicYear e.g. `"2026/27"`, amountPence, unique [programmeId, academicYear])
-- `Module` (code unique, title, programmeId)
+- `Module` (code unique, title, level) ↔ `ModuleProgramme` (moduleId, programmeId): modules can be shared across programmes (D19)
 - `Student` (studentNumber unique, fullName, email unique, dateOfBirth, programmeId, academicYear, status enum, fundingSource enum, timestamps)
 - `StudentNumberCounter` (year PK, lastValue)
 - `StatusChange` (studentId, from, to, reason, changedBy, createdAt)
 - `FeeCharge` (studentId, academicYear, description, amountPence) → `Instalment` (feeChargeId, sequence, dueDate, amountPence)
 - `Payment` (studentId, amountPence, paidOn, reference unique, method enum, note, recordedBy)
 - `Assessment` (title, moduleId, deadline, createdBy)
-- `Extension` (studentId, assessmentId, newDeadline, reason, grantedBy, unique pair)
+- `Extension` (studentId, assessmentId, newDeadline, reason enum, note, grantedBy, unique pair) (D23)
 - `Submission` (studentId, assessmentId, unique pair) → `SubmissionVersion` (version, originalName, storedPath, mimeType, sizeBytes, submittedAt)
-- `Mark` (studentId, assessmentId, unique pair, score Int, markedBy, updatedAt)
-- `ResultRelease` (studentId unique, status enum PENDING/PUBLISHED/WITHHELD/NEEDS_REPUBLISH, withholdReason enum?, note, decidedBy, decidedAt)
-- `AuditLog` (actor, action, entityType, entityId, before Json?, after Json?, createdAt)
+- `Mark` (studentId, assessmentId, unique pair, score Int, markedBy, updatedAt) + release fields **per student per assessment** (D12/D13): releaseStatus enum PENDING/PUBLISHED/WITHHELD/NEEDS_REPUBLISH, publishedScore Int? (snapshot the student sees), withholdReason enum?, releaseNote, releasedBy, releasedAt
+- `AuditLog` (actor, actorRole, area enum ENROLMENT/FEES/RESULTS/SUBMISSIONS, action, entityType, entityId, studentId?, summary, reason?, before Json?, after Json?, createdAt): feeds the profile History tab (D22)
 - Indexes on things the app filters by: `Student(status)`, `Student(programmeId)`, `Instalment(dueDate)`, `Assessment(deadline)`.
 
 ### Domain rules (`src/lib/domain/`, pure functions, each with Vitest tests)
 - `classification.ts`: `classify(score)` → Fail / Pass / Merit / Distinction; rejects scores outside 0–100 or non-integers.
-- `finance.ts`: `accountSummary(charges, instalments, payments, today)` → `{ totalCharged, totalPaid, balance, dueToDate, overdueAmount, daysOverdue, credit }`. Overdue = max(0, dueToDate − totalPaid). Days overdue are counted from the earliest instalment not fully covered by payments.
+- `finance.ts`: `accountSummary(charges, instalments, payments, today)` → `{ totalCharged, totalPaid, balance, dueToDate, overdueAmount, daysOverdue, credit, nextDue, instalments: [{ status: PAID|DUE|OVERDUE, paidAmount, daysOverdue }] }`. Payments are allocated to the oldest unpaid instalment first (D20). `previewPayment(summary, amount)` powers the "new balance after this payment" panel.
 - `submission.ts`: `effectiveDeadline(assessment, extension?)`, `canSubmit({ studentStatus, existing, now, effectiveDeadline })` → `{ ok } | { ok: false, reason }`, `isLate(submittedAt, effectiveDeadline)`.
 - `studentNumber.ts`: `formatStudentNumber(year, n)` → `SMS-2026-0001`.
 - `academicYear.ts`: `academicYearFor(date)`, with 1 September as the boundary.
@@ -93,18 +92,24 @@ All dates are **relative to today**, so overdue and late flags still hold whenev
 
 - 3 programmes (e.g. BA Business Management, LLB Law, BSc Computing) with fees for the current and previous academic year, 2 modules each, and 1–2 assessments per module (some past deadline, some open).
 - Instalment plan: 3 instalments (25% / 25% / 50%).
-- **Match the designs** ([DESIGN_BRIEF.md](DESIGN_BRIEF.md) / [DESIGN_PROMPTS.md](DESIGN_PROMPTS.md)): fees £9,535 (Business, Law) and £8,250 (Computing); Daniel, Tom, Mariam, Priya and James are on BA Business so they appear on the BUS4001 roster; IDs and amounts exactly as in the brief's data table.
+- **Match the designs**: the students, amounts and stories in the table below come from the design canvas (UI_GUIDE.md), which supersedes the brief's data table.
 
-| Student | Story it demonstrates |
-|---|---|
-| Aisha Rahman | SLC-funded; instalment 2 is 21 days overdue → results **withheld: fees outstanding** |
-| Daniel Okafor | Self-funded, fully paid; resubmitted before the deadline (2 versions); **Distinction**, published |
-| Priya Patel | Sponsor; has a balance but **nothing due yet** (balance ≠ overdue); marked, not yet published; one **Fail** |
-| Tom Hughes | **Late submission** (flagged); Pass; published |
-| Mariam Hossain | **Extension** granted; submitted after the original deadline but before the extension → **not late** |
-| James Wilson | **Withdrawn**, with a status history + reason; submitting is blocked |
-| Sofia Rossi | **Deferred**; can't submit; fees paused |
-| Chen Wei | **Completed** last year; overpaid → **credit**; all results published |
+The demo data reproduces the design's screens (see [UI_GUIDE.md](UI_GUIDE.md)). The design's "today" is Thu 22 Oct 2026; the seed keeps the same **offsets from today** (e.g. the BUS4001 deadline is today − 8 days), so the numbers below hold whenever it runs.
+
+Programmes and fees (2025/26 → 2026/27): BA (Hons) Business Management £9,250 → £9,535 · LLB (Hons) Law £9,250 → £9,535 · BSc (Hons) Computing £8,000 → £8,250. BUS4001 Principles of Management is a shared Level 4 module on all three.
+
+| Student | ID | Programme · funding | Story it demonstrates |
+|---|---|---|---|
+| Aisha Rahman | SMS-2026-0001 | Business · Student Finance | Instalment 2 (£2,383.75) **21 days overdue**; balance £7,151.25; BUS4001 61 Merit, **withheld: Fees outstanding** (by Hannah Price) |
+| Daniel Okafor | SMS-2026-0002 | Business · Self-funded | Paid in full; BUS4001 **v2** resubmitted before deadline; **74 Distinction**, published; BUS4004 v2 receipt |
+| Priya Patel | SMS-2026-0003 | Computing · Sponsor | Balance £8,250 but **nothing due yet**; BUS4001 **35 Fail**, pending |
+| Tom Hughes | SMS-2026-0004 | Law · Self-funded | BUS4001 **late by 1d 3h**; 52 Pass, published; part-paid → £883.75 overdue 4 days |
+| Mariam Hossain | SMS-2026-0005 | Law · Student Finance | **Extension** to deadline + 7 days; submitted before it → **not late**; mark changed 58 → 64 → **needs re-publish** |
+| James Wilson | SMS-2026-0006 | Computing · Student Finance | **Withdrawn** (reason "Personal circumstances"); submissions blocked; due fees remain payable (D21) |
+| Sofia Rossi | SMS-2026-0007 | Business · Self-funded | **Deferred** to 2027/28; balance £0 |
+| Chen Wei | SMS-2025-0012 | Computing · Self-funded | **Completed** 2025/26; overpaid → **credit £120.00** |
+
+Also seed: staff names for history (Hannah Price, Registry Officer; Owen Grant, Registry Administrator), payment references from the design (e.g. `SFE-2026-118204`, `BACS-77812` for the duplicate-reference demo), more assessments per module (BUS4003, BUS4004, LAW4002, COM4003), and set the 2025 student-number counter so Chen is `SMS-2025-0012`.
 
 **Done when:** `npm run db:setup` migrates and seeds on a fresh database for **both** Docker (`db:up`) and the no-Docker option (`db:local`), and `npm test` passes.
 

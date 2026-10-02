@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — Success toasts</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.btn-ghost:hover{background:#f4f4f5}
+</style>
+</helmet>
+<div style="width: 880px; height: 360px; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 24px; background: #f4f4f5; color: #09090b; font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">After Record payment (student profile, bottom right)</span>
+    <div role="status" style="width: 420px; box-sizing: border-box; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; column-gap: 10px; align-items: start; padding: 12px 16px; background: #ffffff; border: 1px solid #e4e4e7; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.06);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      <div>
+        <div style="font-weight: 500;">Payment of £500.00 recorded. New balance £1,883.75.</div>
+        <div style="font-size: 13px; line-height: 18px; color: #52525b;">Aisha Rahman · BACS-77904 · still overdue</div>
+      </div>
+      <button type="button" class="btn-ghost" style="height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">View receipt</button>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">After Publish (Results, bottom right)</span>
+    <div role="status" style="width: 420px; box-sizing: border-box; display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; column-gap: 10px; align-items: start; padding: 12px 16px; background: #ffffff; border: 1px solid #e4e4e7; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.06);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+      <div>
+        <div style="font-weight: 500;">Results published for Daniel Okafor.</div>
+        <div style="font-size: 13px; line-height: 18px; color: #52525b;">BUS4001 · 74 Distinction · visible to the student now</div>
+      </div>
+      <span></span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":880,"height":360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

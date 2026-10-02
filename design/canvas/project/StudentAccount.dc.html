@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — My account</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#115e59}a:hover{color:#0b4440}
+*:focus-visible{outline:2px solid #115e59;outline-offset:2px}
+.rs-root{width:100%;display:flex;background:#ffffff;color:#09090b;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;font-size:14px;line-height:20px;-webkit-font-smoothing:antialiased}
+.rs-side{width:224px;flex-shrink:0;background:#fafafa;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;padding:8px 8px 12px;box-sizing:border-box}
+.rs-col{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.rs-dtop{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;border-bottom:1px solid #e4e4e7}
+.rs-mtop{display:none}
+.rs-main{padding:24px;display:flex;flex-direction:column;gap:20px;box-sizing:border-box;max-width:1040px}
+.rs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.rs-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #e4e4e7;border-radius:8px;overflow:hidden}
+.rs-sumcell{border-right:1px solid #e4e4e7}
+.rs-irow{display:grid;grid-template-columns:minmax(0,1.2fr) 140px 120px minmax(0,1fr);gap:12px;align-items:center;padding:0 16px;min-height:40px}
+.rs-prow{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1fr) 120px;gap:12px;align-items:center;padding:0 16px;min-height:40px}
+.rs-thead{display:grid}
+.rs-tabbar{display:none}
+.navlink:hover{background:#ececee}
+.btn-outline:hover{background:#f4f4f5}
+@media (max-width:640px){
+  .rs-side,.rs-dtop,.rs-thead{display:none}
+  .rs-mtop{display:flex;flex-direction:column}
+  .rs-main{padding:16px 16px 24px}
+  .rs-head{flex-direction:column;align-items:stretch}
+  .rs-sum{grid-template-columns:minmax(0,1fr)}
+  .rs-sumcell{border-right:0;border-bottom:1px solid #e4e4e7}
+  .rs-irow{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 16px}
+  .rs-prow{grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:12px 16px}
+  .rs-tabbar{display:flex;position:sticky;bottom:0;margin-top:auto}
+}
+</style>
+</helmet>
+<div class="rs-root" style="min-height: 1000px;">
+
+<aside class="rs-side">
+  <div style="height: 40px; display: flex; align-items: center; padding: 0 8px; margin-bottom: 8px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Registry</div>
+  <div style="padding: 0 8px 4px; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">Student</div>
+  <nav aria-label="Student navigation" style="display: flex; flex-direction: column; gap: 2px;">
+    <a class="navlink" href="StudentAssessments.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>Assessments</a>
+    <a class="navlink" href="StudentResults.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>Results</a>
+    <a href="#" aria-current="page" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; background: #ececee; color: #09090b; font-weight: 500; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7c0-5.333-8-5.333-8 0"></path><path d="M10 7v14"></path><path d="M6 21h12"></path><path d="M6 13h10"></path></svg>Account</a>
+  </nav>
+</aside>
+
+<div class="rs-col">
+  <header class="rs-dtop">
+    <p style="margin: 0; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border: 1px dashed #8a8a94; border-radius: 4px; font-size: 12px; line-height: 16px; color: #52525b;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Demo mode — role switcher instead of login</p>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label for="va" style="font-size: 12px; line-height: 16px; color: #52525b;">Viewing as</label>
+      <button id="va" type="button" aria-haspopup="listbox" style="height: 30px; display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">Aisha Rahman <span style="font-family: 'Geist Mono', monospace; font-weight: 400; color: #52525b;">(SMS-2026-0001)</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      <div role="group" aria-label="Role" style="display: inline-flex; padding: 2px; gap: 2px; background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 6px;">
+        <button type="button" aria-pressed="false" style="height: 26px; padding: 0 12px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #52525b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">Staff</button>
+        <button type="button" aria-pressed="true" style="height: 26px; padding: 0 12px; border: 1px solid #e4e4e7; border-radius: 4px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">Student</button>
+      </div>
+    </div>
+  </header>
+
+  <header class="rs-mtop" style="border-bottom: 1px solid #e4e4e7;">
+    <p style="margin: 0; padding: 6px 16px; background: #fafafa; border-bottom: 1px dashed #8a8a94; font-size: 12px; line-height: 16px; color: #52525b;">Demo mode — role switcher instead of login</p>
+    <div style="height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px;">
+      <span style="font-size: 15px; font-weight: 600;">Registry</span>
+      <button type="button" aria-haspopup="listbox" aria-label="Viewing as Aisha Rahman, change" style="height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;"><span style="color: #52525b; font-weight: 400;">Student ·</span> Aisha R.<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+    </div>
+  </header>
+
+  <main class="rs-main">
+    <div class="rs-head">
+      <div>
+        <h1 style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em;">My account</h1>
+        <p style="margin: 2px 0 0; color: #52525b;">Tuition fees for BA (Hons) Business Management, 2026/27. Read-only.</p>
+      </div>
+      <a href="#" class="btn-outline" style="height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 14px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font-weight: 500; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact Registry</a>
+    </div>
+
+    <dl class="rs-sum" style="margin: 0;">
+      <div class="rs-sumcell" style="padding: 16px; background: #fef2f2;">
+        <dt style="display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: #991b1b;">Overdue now <span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue · <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">21 days</span></span></dt>
+        <dd style="margin: 4px 0 0; font-family: 'Geist Mono', monospace; font-size: 22px; line-height: 30px; font-weight: 600; color: #991b1b;">£2,383.75</dd>
+        <dd style="margin: 0; font-size: 12px; line-height: 16px; color: #3f3f46;">Instalment 2 was due on 1 Oct 2026.</dd>
+      </div>
+      <div class="rs-sumcell" style="padding: 16px;">
+        <dt style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Next due</dt>
+        <dd style="margin: 4px 0 0; font-family: 'Geist Mono', monospace; font-size: 22px; line-height: 30px; font-weight: 600;">£4,767.50</dd>
+        <dd style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">1 Feb 2027 · in 102 days</dd>
+      </div>
+      <div style="padding: 16px;">
+        <dt style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Left to pay for 2026/27</dt>
+        <dd style="margin: 4px 0 0; font-family: 'Geist Mono', monospace; font-size: 22px; line-height: 30px; font-weight: 600;">£7,151.25</dd>
+        <dd style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">of £9,535.00 · £2,383.75 paid</dd>
+      </div>
+    </dl>
+
+    <section aria-labelledby="sched-h" style="display: flex; flex-direction: column; gap: 10px;">
+      <h2 id="sched-h" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">Instalment schedule</h2>
+      <div role="table" aria-label="Instalment schedule" style="border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+        <div role="row" class="rs-irow rs-thead" style="min-height: 36px; background: #f4f4f5; border-bottom: 1px solid #e4e4e7; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">
+          <span role="columnheader">Instalment</span><span role="columnheader">Due</span><span role="columnheader" style="text-align: right;">Amount</span><span role="columnheader">Status</span>
+        </div>
+        <div role="row" class="rs-irow" style="border-bottom: 1px solid #e4e4e7;">
+          <span role="cell" style="font-weight: 500;">Instalment 1 <span style="font-weight: 400; color: #52525b;">· 25%</span></span>
+          <span role="cell" style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3f3f46;">1 Sep 2026</span>
+          <span role="cell" style="text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px;">£2,383.75</span>
+          <span role="cell"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; border: 1px solid #bfe3cb; background: #f0fdf4; color: #15803d; font-size: 12px; line-height: 16px; font-weight: 500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Paid</span></span>
+        </div>
+        <div role="row" class="rs-irow" style="border-bottom: 1px solid #e4e4e7; background: #fef2f2;">
+          <span role="cell" style="font-weight: 500;">Instalment 2 <span style="font-weight: 400; color: #52525b;">· 25%</span></span>
+          <span role="cell" style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3f3f46;">1 Oct 2026</span>
+          <span role="cell" style="text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #991b1b;">£2,383.75</span>
+          <span role="cell"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue · <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">21 days</span></span></span>
+        </div>
+        <div role="row" class="rs-irow">
+          <span role="cell" style="font-weight: 500;">Instalment 3 <span style="font-weight: 400; color: #52525b;">· 50%</span></span>
+          <span role="cell" style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3f3f46;">1 Feb 2027</span>
+          <span role="cell" style="text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px;">£4,767.50</span>
+          <span role="cell"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; border: 1px solid #e4e4e7; background: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;">Due · <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">1 Feb 2027</span></span></span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="hist-h" style="display: flex; flex-direction: column; gap: 10px;">
+      <h2 id="hist-h" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">Payment history</h2>
+      <div role="table" aria-label="Payments received" style="border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+        <div role="row" class="rs-prow rs-thead" style="min-height: 36px; background: #f4f4f5; border-bottom: 1px solid #e4e4e7; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">
+          <span role="columnheader">Date</span><span role="columnheader">From</span><span role="columnheader">Reference</span><span role="columnheader" style="text-align: right;">Amount</span>
+        </div>
+        <div role="row" class="rs-prow">
+          <span role="cell" style="font-family: 'Geist Mono', monospace; font-size: 13px;">1 Sep 2026</span>
+          <span role="cell">Student Finance England</span>
+          <span role="cell" style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #52525b;">SFE-2026-118204</span>
+          <span role="cell" style="text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px;">£2,383.75</span>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">Payments can take up to 3 working days to appear. Questions about what you owe? <a href="#" style="font-weight: 500;">Contact Registry</a>.</p>
+    </section>
+  </main>
+
+  <nav class="rs-tabbar" aria-label="Student navigation" style="height: 60px; border-top: 1px solid #e4e4e7; background: #ffffff; justify-content: space-around; align-items: stretch;">
+    <a href="StudentAssessments.dc.html" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #52525b; font-size: 12px; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>Assessments</a>
+    <a href="StudentResults.dc.html" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #52525b; font-size: 12px; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>Results</a>
+    <a href="#" aria-current="page" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #115e59; font-size: 12px; font-weight: 600; text-decoration: none; box-shadow: inset 0 2px 0 #115e59;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7c0-5.333-8-5.333-8 0"></path><path d="M10 7v14"></path><path d="M6 21h12"></path><path d="M6 13h10"></path></svg>Account</a>
+  </nav>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

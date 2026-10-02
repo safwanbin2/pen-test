@@ -79,7 +79,7 @@ Rubric key: **S** = stakeholder understanding, **F** = feature intuition, **T** 
 | F-ASM-10 | Staff view per assessment: submitted / late / not submitted | P1 | S |
 | F-ASM-11 | Withdrawn/Deferred students blocked from submitting (F-ENR-11) | P1 | F |
 | F-ASM-12 | Staff can download submitted files | P1 | — |
-| F-ASM-13 | Module entity (code, title, programme); students only see assessments for their programme | P1 | S |
+| F-ASM-13 | Module entity (code, title, level), shareable across programmes; students only see assessments on their programme's modules | P1 | S |
 
 ## 4. Marksheet & Results
 
@@ -87,12 +87,12 @@ Rubric key: **S** = stakeholder understanding, **F** = feature intuition, **T** 
 |---|---|---|---|
 | F-RES-01 | Staff enter an integer mark 0–100 per student per assessment | P0 | — |
 | F-RES-02 | Classification: Fail < 40, Pass ≥ 40, Merit ≥ 60, Distinction ≥ 70 | P0 | — |
-| F-RES-03 | Publish / withhold results per student | P0 | — |
+| F-RES-03 | Publish / withhold results per student (per assessment) | P0 | — |
 | F-RES-04 | Students see the marksheet only when published | P0 | — |
 | F-RES-05 | Classification calculated, never stored | P1 | T |
-| F-RES-06 | Withhold requires a reason: Fees outstanding / Academic misconduct / Awaiting exam board / Other | P1 | S |
+| F-RES-06 | Withhold requires a reason (Fees outstanding / Academic misconduct / Awaiting exam board / Other) and a note | P1 | S |
 | F-RES-07 | Student with overdue **tuition** fees → staff are *prompted* to withhold (never automatic) | P1 | S F |
-| F-RES-08 | Mark changed after publishing → release goes back to "Needs re-publish"; change is audited | P1 | F |
+| F-RES-08 | Mark changed after publishing → "Needs re-publish"; student keeps seeing the last published mark until re-published; change is audited | P1 | F |
 | F-RES-09 | Student sees only "Results not yet released", with no hint of marks or the withhold reason | P1 | F |
 | F-RES-10 | Grid-style marksheet (students × assessments) for fast entry | P2 | S |
 | F-RES-11 | Printable / PDF marksheet for the student | P2 | S |

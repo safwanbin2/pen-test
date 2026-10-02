@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — Grant extension</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#115e59}a:hover{color:#0b4440}
+*:focus-visible{outline:2px solid #115e59;outline-offset:2px}
+.btn-outline:hover{background:#f4f4f5}
+.btn-primary:hover{background:#0d4f4b}
+.btn-ghost:hover{background:#f4f4f5}
+</style>
+</helmet>
+<div style="position: relative; width: 100%; min-height: 900px; overflow: hidden; background: #ffffff; color: #09090b; font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px;">
+  <div aria-hidden="true" inert="" style="pointer-events: none;">
+    <dc-import name="AssessmentDetail" hint-size="100%,900px"></dc-import>
+  </div>
+  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5);"></div>
+
+  <div role="dialog" aria-modal="true" aria-labelledby="gx-title" aria-describedby="gx-desc" style="position: absolute; top: 96px; left: 50%; transform: translateX(-50%); width: 480px; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 16px; background: #ffffff; border: 1px solid #e4e4e7; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.06);">
+    <a href="AssessmentDetail.dc.html" class="btn-ghost" aria-label="Close" style="position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; color: #52525b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></a>
+
+    <div style="padding-right: 32px;">
+      <h2 id="gx-title" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">Grant extension</h2>
+      <p id="gx-desc" style="margin: 4px 0 0; color: #52525b;">Mariam Hossain · <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">SMS-2026-0005</span><br><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">BUS4001</span> Principles of Management — Report (2,500 words)</p>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px; background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 6px; font-size: 12px; line-height: 16px; color: #52525b;">
+      <span>Original deadline</span>
+      <s style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3f3f46;">14 Oct 2026, 23:59 (UK time)</s>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 112px; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="gx-date" style="font-weight: 500;">New deadline date</label>
+        <input id="gx-date" type="text" value="21 Oct 2026" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="gx-time" style="font-weight: 500;">Time</label>
+        <input id="gx-time" type="text" value="23:59" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+      </div>
+      <p style="grid-column: 1 / -1; margin: -4px 0 0; font-size: 12px; line-height: 16px; color: #52525b;">UK time. 7 days after the original deadline; must be later than it.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="gx-reason" style="font-weight: 500;">Reason <span style="font-weight: 400; color: #52525b;">(required)</span></label>
+      <button id="gx-reason" type="button" aria-haspopup="listbox" style="height: 32px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 14px/20px 'Geist', sans-serif; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">Mitigating circumstances<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <label for="gx-note" style="font-weight: 500;">Note <span style="font-weight: 400; color: #52525b;">(required)</span></label>
+      <textarea id="gx-note" rows="3" style="min-height: 72px; box-sizing: border-box; padding: 6px 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 14px/20px 'Geist', sans-serif; resize: vertical; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Evidence received 12 Oct 2026 and approved by the module leader.</textarea>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">Saved to Mariam's history with your name and the time. Mariam sees the new deadline, not the note.</p>
+    </div>
+
+    <div role="note" style="display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 12px; padding: 12px 16px; background: #eff6ff; border: 1px solid #b9c9f2; border-radius: 8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+      <div>Work submitted by <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">21 Oct 2026, 23:59 (UK time)</span> is not marked late. The roster shows the new deadline in place of the original.</div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 8px; padding-top: 4px;">
+      <a href="AssessmentDetail.dc.html" class="btn-outline" style="height: 32px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font-weight: 500; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Cancel</a>
+      <a href="AssessmentDetail.dc.html" class="btn-primary" style="height: 32px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid #115e59; border-radius: 6px; background: #115e59; color: #ffffff; font-weight: 500; text-decoration: none;">Grant extension</a>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

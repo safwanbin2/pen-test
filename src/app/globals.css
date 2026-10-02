@@ -3,6 +3,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css"; /* data-open/closed/... variants used by dialog, dropdown, select */
+@source not "../../design"; /* design/ holds reference mockups, not app code */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -167,14 +168,12 @@
     @apply border-border outline-ring;
   }
   html {
-    font-size: 16px; /* rem stays 16px; UI text is text-sm (14px) */
     @apply font-sans;
   }
   body {
     @apply bg-background text-foreground text-sm antialiased;
-    font-feature-settings: "tnum" 0;
   }
-  /* Visible focus everywhere: 2px solid ring, 2px offset */
+  /* Visible focus everywhere: 2px solid ring, 2px offset (not shadcn's ring/50) */
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;

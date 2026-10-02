@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — Staff dashboard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#115e59}a:hover{color:#0b4440}
+*:focus-visible{outline:2px solid #115e59;outline-offset:2px}
+.qlink:hover{background:#f4f4f5}
+.navlink:hover{background:#ececee}
+.trow:hover{background:#f7f7f8}
+.trow-x:hover{background:#fde8e8}
+.btn-outline:hover{background:#f4f4f5}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 860px; display: flex; background: #ffffff; color: #09090b; font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 20px; -webkit-font-smoothing: antialiased;">
+
+<aside style="width: 224px; flex-shrink: 0; background: #fafafa; border-right: 1px solid #e4e4e7; display: flex; flex-direction: column; padding: 8px 8px 12px; box-sizing: border-box;">
+  <div style="height: 40px; display: flex; align-items: center; padding: 0 8px; margin-bottom: 8px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Registry</div>
+  <div style="padding: 0 8px 4px; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">Staff</div>
+  <nav aria-label="Staff navigation" style="display: flex; flex-direction: column; gap: 2px;">
+    <a href="#" aria-current="page" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; background: #ececee; color: #09090b; font-weight: 500; text-decoration: none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>Dashboard</a>
+    <a class="navlink" href="StudentsList.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Students</a>
+    <a class="navlink" href="ProgrammeFees.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7c0-5.333-8-5.333-8 0"></path><path d="M10 7v14"></path><path d="M6 21h12"></path><path d="M6 13h10"></path></svg>Fees</a>
+    <a class="navlink" href="AssessmentDetail.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>Assessments</a>
+    <a class="navlink" href="Results.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>Results</a>
+  </nav>
+  <div style="margin-top: auto; padding: 8px; border-top: 1px solid #e4e4e7; font-size: 12px; line-height: 16px; color: #52525b;">Signed in as Registry staff (demo)</div>
+</aside>
+
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column;">
+  <header style="height: 48px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 24px; border-bottom: 1px solid #e4e4e7;">
+    <p style="margin: 0; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border: 1px dashed #8a8a94; border-radius: 4px; font-size: 12px; line-height: 16px; color: #52525b;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Demo mode — role switcher instead of login</p>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 12px; line-height: 16px; color: #52525b;">View as</span>
+      <div role="group" aria-label="Role" style="display: inline-flex; padding: 2px; gap: 2px; background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 6px;">
+        <button type="button" aria-pressed="true" style="height: 26px; padding: 0 12px; border: 1px solid #e4e4e7; border-radius: 4px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">Staff</button>
+        <button type="button" aria-pressed="false" style="height: 26px; padding: 0 12px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #52525b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">Student</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 24px; display: flex; flex-direction: column; gap: 24px; box-sizing: border-box;">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;">
+      <div>
+        <h1 style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em;">Dashboard</h1>
+        <p style="margin: 2px 0 0; color: #52525b;">What needs action today, Thursday 22 Oct 2026.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <label for="year" style="font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">Academic year</label>
+        <button id="year" type="button" style="height: 32px; min-width: 128px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 400 13px/20px 'Geist Mono', ui-monospace, monospace; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">2026/27<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+    </div>
+
+    <nav aria-label="Work queues" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+      <a href="#overdue" aria-current="true" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; background: #f4f4f5; color: #09090b; text-decoration: none; border-right: 1px solid #e4e4e7; box-shadow: inset 0 -2px 0 #115e59;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Overdue fees</span>
+        <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-family: 'Geist Mono', monospace; font-size: 20px; line-height: 28px; font-weight: 500; color: #991b1b;">3</span><span style="font-size: 12px; line-height: 16px; color: #52525b;">£4,298.75 · oldest 21 days</span></span>
+      </a>
+      <a class="qlink" href="#" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; color: #09090b; text-decoration: none; border-right: 1px solid #e4e4e7;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Late submissions (7 days)</span>
+        <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-family: 'Geist Mono', monospace; font-size: 20px; line-height: 28px; font-weight: 500; color: #b91c1c;">1</span><span style="font-size: 12px; line-height: 16px; color: #52525b;">BUS4001</span></span>
+      </a>
+      <a class="qlink" href="AssessmentDetail.dc.html" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; color: #09090b; text-decoration: none; border-right: 1px solid #e4e4e7;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Awaiting marking</span>
+        <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-family: 'Geist Mono', monospace; font-size: 20px; line-height: 28px; font-weight: 500;">1</span><span style="font-size: 12px; line-height: 16px; color: #52525b;">BUS4001</span></span>
+      </a>
+      <a class="qlink" href="#" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; color: #09090b; text-decoration: none; border-right: 1px solid #e4e4e7;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Marked, not published</span>
+        <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-family: 'Geist Mono', monospace; font-size: 20px; line-height: 28px; font-weight: 500;">2</span><span style="font-size: 12px; line-height: 16px; color: #52525b;">BUS4001 · ready to publish</span></span>
+      </a>
+      <a class="qlink" href="#" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; color: #09090b; text-decoration: none;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #3f3f46;">Withheld results</span>
+        <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-family: 'Geist Mono', monospace; font-size: 20px; line-height: 28px; font-weight: 500; color: #c2410c;">1</span><span style="font-size: 12px; line-height: 16px; color: #52525b;">Fees outstanding</span></span>
+      </a>
+    </nav>
+
+    <section id="overdue" aria-labelledby="overdue-h" style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;">
+        <div>
+          <h2 id="overdue-h" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">Overdue fees</h2>
+          <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">3 students · <span style="font-family: 'Geist Mono', monospace;">£4,298.75</span> past due · sorted by days overdue</p>
+        </div>
+        <a href="#" style="font-size: 14px; font-weight: 500; text-underline-offset: 4px;">Open in Fees</a>
+      </div>
+
+      <div style="border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: #f4f4f5;">
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Student</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Student ID</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Programme</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Funding</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: right; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Amount overdue</th>
+              <th scope="col" aria-sort="descending" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #09090b; border-bottom: 1px solid #e4e4e7;">Days overdue ↓</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; text-align: left; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b; border-bottom: 1px solid #e4e4e7;">Last payment</th>
+              <th scope="col" style="height: 36px; padding: 0 12px; border-bottom: 1px solid #e4e4e7;"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Action</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="trow-x" style="background: #fef2f2; cursor: pointer;">
+              <td style="height: 52px; padding: 0 12px; border-bottom: 1px solid #e4e4e7;">
+                <a href="#" style="display: block; color: #09090b; font-weight: 500; text-decoration: none;">Aisha Rahman</a>
+                <span style="display: flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; color: #52525b;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Results withheld · Fees outstanding</span>
+              </td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; font-family: 'Geist Mono', monospace; font-size: 13px;">SMS-2026-0001</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;">BA (Hons) Business Management</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;">Student Finance</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #991b1b;">£2,383.75</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue <span style="opacity: 0.7;">·</span> <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">21 days</span></span></td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; font-family: 'Geist Mono', monospace; font-size: 13px;">1 Sep 2026 <span style="color: #52525b;">· £2,383.75</span></td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; text-align: right;"><button type="button" class="btn-outline" style="height: 28px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; white-space: nowrap; cursor: pointer;">Record payment</button></td>
+            </tr>
+            <tr class="trow" style="cursor: pointer;">
+              <td style="height: 52px; padding: 0 12px; border-bottom: 1px solid #e4e4e7;">
+                <a href="#" style="display: block; color: #09090b; font-weight: 500; text-decoration: none;">James Wilson</a>
+                <span style="display: block; font-size: 12px; line-height: 16px; color: #52525b;">Withdrawn · fees remain payable</span>
+              </td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; font-family: 'Geist Mono', monospace; font-size: 13px;">SMS-2026-0006</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;">BSc (Hons) Computing</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;">Student Finance</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px;">£1,031.25</td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7;"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue <span style="opacity: 0.7;">·</span> <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">9 days</span></span></td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; font-family: 'Geist Mono', monospace; font-size: 13px;">2 Sep 2026 <span style="color: #52525b;">· £2,062.50</span></td>
+              <td style="padding: 0 12px; border-bottom: 1px solid #e4e4e7; text-align: right;"><button type="button" class="btn-outline" style="height: 28px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; white-space: nowrap; cursor: pointer;">Record payment</button></td>
+            </tr>
+            <tr class="trow" style="cursor: pointer;">
+              <td style="height: 52px; padding: 0 12px;">
+                <a href="#" style="display: block; color: #09090b; font-weight: 500; text-decoration: none;">Tom Hughes</a>
+                <span style="display: block; font-size: 12px; line-height: 16px; color: #52525b;">Part-paid on due date</span>
+              </td>
+              <td style="padding: 0 12px; font-family: 'Geist Mono', monospace; font-size: 13px;">SMS-2026-0004</td>
+              <td style="padding: 0 12px;">LLB (Hons) Law</td>
+              <td style="padding: 0 12px;">Self-funded</td>
+              <td style="padding: 0 12px; text-align: right; font-family: 'Geist Mono', monospace; font-size: 13px;">£883.75</td>
+              <td style="padding: 0 12px;"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; background: #991b1b; color: #ffffff; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>Overdue <span style="opacity: 0.7;">·</span> <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">4 days</span></span></td>
+              <td style="padding: 0 12px; font-family: 'Geist Mono', monospace; font-size: 13px;">18 Oct 2026 <span style="color: #52525b;">· £1,500.00</span></td>
+              <td style="padding: 0 12px; text-align: right;"><button type="button" class="btn-outline" style="height: 28px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; white-space: nowrap; cursor: pointer;">Record payment</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">Highlighted rows are more than 14 days overdue. Withholding results is a separate step in Results and always asks for a reason.</p>
+    </section>
+  </main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

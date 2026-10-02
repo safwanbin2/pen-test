@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Registry — My assessments</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#115e59}a:hover{color:#0b4440}
+*:focus-visible{outline:2px solid #115e59;outline-offset:2px}
+.rs-root{width:100%;display:flex;background:#ffffff;color:#09090b;font-family:'Geist',ui-sans-serif,system-ui,sans-serif;font-size:14px;line-height:20px;-webkit-font-smoothing:antialiased}
+.rs-side{width:224px;flex-shrink:0;background:#fafafa;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;padding:8px 8px 12px;box-sizing:border-box}
+.rs-col{flex-grow:1;min-width:0;display:flex;flex-direction:column}
+.rs-dtop{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;border-bottom:1px solid #e4e4e7}
+.rs-mtop{display:none}
+.rs-main{padding:24px;display:flex;flex-direction:column;gap:16px;box-sizing:border-box}
+.rs-split{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;align-items:start}
+.rs-arow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1.3fr) 168px;gap:12px;align-items:center;padding:12px 16px}
+.rs-status{display:flex;justify-content:flex-end}
+.rs-tabbar{display:none}
+.navlink:hover{background:#ececee}
+.btn-outline:hover{background:#f4f4f5}
+@media (max-width:640px){
+  .rs-side,.rs-dtop{display:none}
+  .rs-mtop{display:flex;flex-direction:column}
+  .rs-main{padding:16px 16px 24px}
+  .rs-split{grid-template-columns:minmax(0,1fr)}
+  .rs-arow{grid-template-columns:minmax(0,1fr);gap:6px;padding:12px 16px}
+  .rs-status{justify-content:flex-start}
+  .rs-tabbar{display:flex;position:sticky;bottom:0;margin-top:auto}
+}
+</style>
+</helmet>
+<div class="rs-root" style="min-height: 900px;">
+
+<aside class="rs-side">
+  <div style="height: 40px; display: flex; align-items: center; padding: 0 8px; margin-bottom: 8px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;">Registry</div>
+  <div style="padding: 0 8px 4px; font-size: 12px; line-height: 16px; font-weight: 500; color: #52525b;">Student</div>
+  <nav aria-label="Student navigation" style="display: flex; flex-direction: column; gap: 2px;">
+    <a href="#" aria-current="page" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; background: #ececee; color: #09090b; font-weight: 500; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>Assessments</a>
+    <a class="navlink" href="StudentResults.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>Results</a>
+    <a class="navlink" href="StudentAccount.dc.html" style="height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; color: #3f3f46; text-decoration: none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7c0-5.333-8-5.333-8 0"></path><path d="M10 7v14"></path><path d="M6 21h12"></path><path d="M6 13h10"></path></svg>Account</a>
+  </nav>
+</aside>
+
+<div class="rs-col">
+  <header class="rs-dtop">
+    <p style="margin: 0; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border: 1px dashed #8a8a94; border-radius: 4px; font-size: 12px; line-height: 16px; color: #52525b;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Demo mode — role switcher instead of login</p>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <label for="va" style="font-size: 12px; line-height: 16px; color: #52525b;">Viewing as</label>
+      <button id="va" type="button" aria-haspopup="listbox" style="height: 30px; display: inline-flex; align-items: center; gap: 8px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">{{who.name}} <span style="font-family: 'Geist Mono', monospace; font-weight: 400; color: #52525b;">({{who.id}})</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      <div role="group" aria-label="Role" style="display: inline-flex; padding: 2px; gap: 2px; background: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 6px;">
+        <button type="button" aria-pressed="false" style="height: 26px; padding: 0 12px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #52525b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;">Staff</button>
+        <button type="button" aria-pressed="true" style="height: 26px; padding: 0 12px; border: 1px solid #e4e4e7; border-radius: 4px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">Student</button>
+      </div>
+    </div>
+  </header>
+
+  <header class="rs-mtop" style="border-bottom: 1px solid #e4e4e7;">
+    <p style="margin: 0; padding: 6px 16px; background: #fafafa; border-bottom: 1px dashed #8a8a94; font-size: 12px; line-height: 16px; color: #52525b;">Demo mode — role switcher instead of login</p>
+    <div style="height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px;">
+      <span style="font-size: 15px; font-weight: 600;">Registry</span>
+      <button type="button" aria-haspopup="listbox" aria-label="Viewing as {{who.name}}, change" style="height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 13px/18px 'Geist', sans-serif; cursor: pointer;"><span style="color: #52525b; font-weight: 400;">Student ·</span> {{who.short}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+    </div>
+  </header>
+
+  <main class="rs-main">
+    <div>
+      <h1 style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em;">My assessments</h1>
+      <p style="margin: 2px 0 0; color: #52525b;">{{who.programme}} · 2026/27 · all times UK time</p>
+    </div>
+
+    <sc-if value="{{isJames}}" hint-placeholder-val="{{false}}">
+      <div role="alert" style="display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 12px; padding: 12px 16px; background: #ffffff; border: 1px solid #8a8a94; border-radius: 8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <div>
+          <div style="font-weight: 600;">Submissions are closed because your enrolment status is Withdrawn. Contact Registry.</div>
+          <div style="margin-top: 2px; color: #3f3f46;">You can still see what you submitted before 2 Oct 2026. <a href="#" style="font-weight: 500;">Contact Registry</a></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <div class="rs-split">
+      <section aria-label="Assessments" style="border: 1px solid #e4e4e7; border-radius: 8px; overflow: hidden;">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+          <a href="#" aria-current="{{r.current}}" class="rs-arow" style="background: {{r.bg}}; border-bottom: 1px solid #e4e4e7; color: #09090b; text-decoration: none;">
+            <span style="min-width: 0;">
+              <span style="display: block; font-weight: 500;">{{r.title}}</span>
+              <span style="display: block; font-size: 12px; line-height: 16px; color: #52525b;"><span style="font-family: 'Geist Mono', monospace;">{{r.code}}</span> {{r.module}}</span>
+            </span>
+            <span style="min-width: 0;">
+              <span style="display: block; font-family: 'Geist Mono', monospace; font-size: 13px;">{{r.deadline}}</span>
+              <sc-if value="{{r.hasStruck}}" hint-placeholder-val="{{false}}"><span style="display: block; font-size: 12px; line-height: 16px; color: #52525b;">Extended · was <s style="font-family: 'Geist Mono', monospace;">{{r.struck}}</s></span></sc-if>
+              <span style="display: block; font-size: 12px; line-height: 16px; color: {{r.relColor}}; font-weight: {{r.relWeight}};">{{r.rel}}</span>
+            </span>
+            <span class="rs-status" style="flex-wrap: wrap; gap: 4px;">
+              <span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; border: 1px {{r.bStyle}} {{r.bBorder}}; background: {{r.bBg}}; color: {{r.bFg}}; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;"><sc-if value="{{r.iCheck}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></sc-if><sc-if value="{{r.iClock}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></sc-if><sc-if value="{{r.iLock}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></sc-if>{{r.badge}}<sc-if value="{{r.hasMeta}}" hint-placeholder-val="{{false}}"><span style="opacity: 0.7;">·</span><span style="font-family: 'Geist Mono', monospace; font-weight: 400;">{{r.meta}}</span></sc-if></span>
+              <sc-if value="{{r.hasExt}}" hint-placeholder-val="{{false}}"><span title="Extended to 21 Oct 2026, 23:59 (UK time) · original 14 Oct 2026" style="display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border-radius: 4px; border: 1px solid #b9c9f2; background: #eff6ff; color: #1d4ed8; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap;">Extension · <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">21 Oct</span></span></sc-if>
+            </span>
+          </a>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="panel-h" style="border: 1px solid #e4e4e7; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <h2 id="panel-h" style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600;">{{panel.title}}</h2>
+          <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;"><span style="font-family: 'Geist Mono', monospace;">{{panel.code}}</span> {{panel.module}}</p>
+        </div>
+        <dl style="margin: 0; display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: #fafafa; border: 1px solid #e4e4e7; border-radius: 6px;">
+          <div style="display: flex; justify-content: space-between; gap: 12px;"><dt style="color: #52525b;">Deadline</dt><dd style="margin: 0; text-align: right;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">{{panel.deadline}}</span><sc-if value="{{panel.hasStruck}}" hint-placeholder-val="{{false}}"><span style="display: block; font-size: 12px; line-height: 16px; color: #52525b;">Extended · original <s style="font-family: 'Geist Mono', monospace;">14 Oct 2026, 23:59</s></span></sc-if></dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px;"><dt style="color: #52525b;">Time left</dt><dd style="margin: 0; font-weight: 500; color: {{panel.relColor}};">{{panel.rel}}</dd></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px;"><dt style="color: #52525b;">Files</dt><dd style="margin: 0;">PDF or DOCX, up to 10 MB</dd></div>
+        </dl>
+
+        <sc-if value="{{hasReceipt}}" hint-placeholder-val="{{true}}">
+          <div role="status" style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px solid {{panel.receiptBorder}}; border-radius: 8px; background: {{panel.receiptBg}};">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{panel.receiptIcon}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{panel.receiptTitle}}</div>
+            <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: 13px;">
+              <dt style="color: #52525b;">File</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace; overflow-wrap: anywhere;">{{panel.file}}</dd>
+              <dt style="color: #52525b;">Received</dt><dd style="margin: 0; font-family: 'Geist Mono', monospace;">{{panel.received}}</dd>
+              <dt style="color: #52525b;">Version</dt><dd style="margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-weight: 500;">{{panel.version}}</span> <span style="color: #52525b;">{{panel.versionNote}}</span></dd>
+            </dl>
+            <sc-if value="{{panel.isLate}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; display: flex; gap: 6px; align-items: center;"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 4px; border: 1px solid #e8a3a3; background: #fef2f2; color: #b91c1c; font-size: 12px; line-height: 16px; font-weight: 500;">Late · <span style="font-family: 'Geist Mono', monospace; font-weight: 400;">1d 3h</span></span><span style="font-size: 13px;">Received 1 day 3 hours after the deadline.</span></p>
+            </sc-if>
+            <p style="margin: 0; font-size: 12px; line-height: 16px; color: #3f3f46;">{{panel.receiptNote}}</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{canResubmit}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button type="button" class="btn-outline" style="height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font: 500 14px/20px 'Geist', sans-serif; cursor: pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>Replace file</button>
+            <p style="margin: 0; font-size: 12px; line-height: 16px; color: #52525b;">You can replace your file until 24 Oct 2026, 23:59 (UK time). Only your latest version is marked.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isJames}}" hint-placeholder-val="{{false}}">
+          <div style="padding: 16px; border: 1px dashed #e4e4e7; border-radius: 8px; background: #fafafa; color: #3f3f46;">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: #09090b;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Uploads are closed</div>
+            <p style="margin: 6px 0 0;">Submissions are closed because your enrolment status is Withdrawn. Contact Registry.</p>
+            <a href="#" class="btn-outline" style="margin-top: 12px; height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border: 1px solid #8a8a94; border-radius: 6px; background: #ffffff; color: #09090b; font-weight: 500; text-decoration: none;">Contact Registry</a>
+          </div>
+        </sc-if>
+      </section>
+    </div>
+  </main>
+
+  <nav class="rs-tabbar" aria-label="Student navigation" style="height: 60px; border-top: 1px solid #e4e4e7; background: #ffffff; justify-content: space-around; align-items: stretch;">
+    <a href="#" aria-current="page" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #115e59; font-size: 12px; font-weight: 600; text-decoration: none; box-shadow: inset 0 2px 0 #115e59;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>Assessments</a>
+    <a href="StudentResults.dc.html" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #52525b; font-size: 12px; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>Results</a>
+    <a href="StudentAccount.dc.html" style="flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #52525b; font-size: 12px; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 7c0-5.333-8-5.333-8 0"></path><path d="M10 7v14"></path><path d="M6 21h12"></path><path d="M6 13h10"></path></svg>Account</a>
+  </nav>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"student":{"editor":"enum","options":["daniel","tom","mariam","james"],"default":"daniel"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var who = this.props.student || 'daniel';
+    var B = {
+      submitted: { bBorder: '#e4e4e7', bBg: '#f4f4f5', bFg: '#18181b', bStyle: 'solid' },
+      late: { bBorder: '#e8a3a3', bBg: '#fef2f2', bFg: '#b91c1c', bStyle: 'solid' },
+      none: { bBorder: '#8a8a94', bBg: 'transparent', bFg: '#52525b', bStyle: 'dashed' },
+      closed: { bBorder: '#f4f4f5', bBg: '#f4f4f5', bFg: '#52525b', bStyle: 'solid' }
+    };
+    function row(o, sel) {
+      var b = B[o.kind];
+      return {
+        title: o.title, code: o.code, module: o.module, deadline: o.deadline,
+        hasStruck: !!o.struck, struck: o.struck || '',
+        rel: o.rel, relColor: o.soon ? '#09090b' : '#52525b', relWeight: o.soon ? '500' : '400',
+        badge: o.badge, hasMeta: !!o.meta,
+        iCheck: o.kind === 'submitted', iClock: o.kind === 'late', iLock: o.kind === 'closed', meta: o.meta || '', hasExt: !!o.ext,
+        bBorder: b.bBorder, bBg: b.bBg, bFg: b.bFg, bStyle: b.bStyle,
+        bg: sel ? '#f4f4f5' : '#ffffff', current: sel ? 'true' : 'false'
+      };
+    }
+    var P = {
+      daniel: {
+        who: { name: 'Daniel Okafor', short: 'Daniel O.', id: 'SMS-2026-0002', programme: 'BA (Hons) Business Management' },
+        rows: [
+          row({ title: 'Case Study (1,500 words)', code: 'BUS4004', module: 'Business Finance', deadline: '24 Oct 2026, 23:59', rel: 'Due in 2 days', soon: true, kind: 'submitted', badge: 'Submitted', meta: 'v2' }, true),
+          row({ title: 'Essay (2,000 words)', code: 'BUS4003', module: 'Economics for Business', deadline: '18 Nov 2026, 23:59', rel: 'Due in 27 days', kind: 'none', badge: 'Not submitted' }),
+          row({ title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '14 Oct 2026, 23:59', rel: 'Closed · mark published', kind: 'submitted', badge: 'Submitted', meta: 'v2' })
+        ],
+        panel: { title: 'Case Study (1,500 words)', code: 'BUS4004', module: 'Business Finance', deadline: '24 Oct 2026, 23:59 (UK time)', rel: 'Due in 2 days', relColor: '#09090b', receiptTitle: 'Received', file: 'Okafor_BUS4004_CaseStudy_v2.pdf', received: '22 Oct 2026, 09:14', version: 'v2', versionNote: 'replaces v1 (20 Oct, 18:02)', receiptNote: 'Keep this receipt. We’ve also emailed it to you.', receiptBorder: '#bfe3cb', receiptBg: '#f0fdf4', receiptIcon: '#15803d' },
+        receipt: true, resubmit: true
+      },
+      tom: {
+        who: { name: 'Tom Hughes', short: 'Tom H.', id: 'SMS-2026-0004', programme: 'LLB (Hons) Law' },
+        rows: [
+          row({ title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '14 Oct 2026, 23:59', rel: 'Submitted 16 Oct 2026, 02:59', kind: 'late', badge: 'Late', meta: '1d 3h' }, true),
+          row({ title: 'Problem Question', code: 'LAW4002', module: 'Contract Law', deadline: '5 Nov 2026, 23:59', rel: 'Due in 14 days', kind: 'none', badge: 'Not submitted' })
+        ],
+        panel: { title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '14 Oct 2026, 23:59 (UK time)', rel: 'Closed', relColor: '#52525b', receiptTitle: 'Received late', file: 'Hughes_BUS4001_Report.docx', received: '16 Oct 2026, 02:59', version: 'v1', versionNote: '', receiptNote: 'Your work is recorded as late. If you think this is wrong, contact Registry.', receiptBorder: '#e4e4e7', receiptBg: '#ffffff', receiptIcon: '#52525b', isLate: true },
+        receipt: true, resubmit: false
+      },
+      mariam: {
+        who: { name: 'Mariam Hossain', short: 'Mariam H.', id: 'SMS-2026-0005', programme: 'LLB (Hons) Law' },
+        rows: [
+          row({ title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '21 Oct 2026, 23:59', struck: '14 Oct', rel: 'Submitted 19 Oct 2026, 16:40', kind: 'submitted', badge: 'Submitted', meta: 'v1', ext: true }, true),
+          row({ title: 'Problem Question', code: 'LAW4002', module: 'Contract Law', deadline: '5 Nov 2026, 23:59', rel: 'Due in 14 days', kind: 'none', badge: 'Not submitted' })
+        ],
+        panel: { title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '21 Oct 2026, 23:59 (UK time)', hasStruck: true, rel: 'Closed', relColor: '#52525b', receiptTitle: 'Received on time', file: 'Hossain_BUS4001_Report.pdf', received: '19 Oct 2026, 16:40', version: 'v1', versionNote: '', receiptNote: 'Not late: your extension to 21 Oct 2026 applied.', receiptBorder: '#bfe3cb', receiptBg: '#f0fdf4', receiptIcon: '#15803d' },
+        receipt: true, resubmit: false
+      },
+      james: {
+        who: { name: 'James Wilson', short: 'James W.', id: 'SMS-2026-0006', programme: 'BSc (Hons) Computing' },
+        rows: [
+          row({ title: 'Portfolio', code: 'COM4003', module: 'Programming Fundamentals', deadline: '30 Oct 2026, 23:59', rel: 'Submissions closed', kind: 'closed', badge: 'Closed' }, true),
+          row({ title: 'Report (2,500 words)', code: 'BUS4001', module: 'Principles of Management', deadline: '14 Oct 2026, 23:59', rel: 'Submissions closed', kind: 'closed', badge: 'Closed' })
+        ],
+        panel: { title: 'Portfolio', code: 'COM4003', module: 'Programming Fundamentals', deadline: '30 Oct 2026, 23:59 (UK time)', rel: 'Closed for you', relColor: '#52525b' },
+        receipt: false, resubmit: false
+      }
+    };
+    var p = P[who] || P.daniel;
+    var panel = Object.assign({ hasStruck: false, isLate: false, file: '', received: '', version: '', versionNote: '', receiptTitle: '', receiptNote: '', receiptBorder: '#e4e4e7', receiptBg: '#ffffff', receiptIcon: '#52525b' }, p.panel);
+    return { who: p.who, rows: p.rows, panel: panel, hasReceipt: p.receipt, canResubmit: p.resubmit, isJames: who === 'james' };
+  }
+}
+</script>
+</body>
+</html>
