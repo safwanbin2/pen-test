@@ -93,6 +93,7 @@ All dates are **relative to today**, so overdue and late flags still hold whenev
 
 - 3 programmes (e.g. BA Business Management, LLB Law, BSc Computing) with fees for the current and previous academic year, 2 modules each, and 1–2 assessments per module (some past deadline, some open).
 - Instalment plan: 3 instalments (25% / 25% / 50%).
+- **Match the designs** ([DESIGN_BRIEF.md](DESIGN_BRIEF.md) / [DESIGN_PROMPTS.md](DESIGN_PROMPTS.md)): fees £9,535 (Business, Law) and £8,250 (Computing); Daniel, Tom, Mariam, Priya and James are on BA Business so they appear on the BUS4001 roster; IDs and amounts exactly as in the brief's data table.
 
 | Student | Story it demonstrates |
 |---|---|

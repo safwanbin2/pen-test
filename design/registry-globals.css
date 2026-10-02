@@ -1,8 +1,9 @@
-/* Registry theme: tokens from the Claude Design handoff (design/registry-globals.css),
-   merged with the shadcn "radix-nova" plumbing the UI components depend on. */
+/* Original token export from Claude Design, kept unmodified for reference.
+   The live version (merged with shadcn Nova plumbing) is src/app/globals.css. */
+
+/* Registry — shadcn/ui theme (Tailwind v4). app/globals.css */
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css"; /* data-open/closed/... variants used by dialog, dropdown, select */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -106,15 +107,9 @@
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-heading: var(--font-sans); /* used by Nova card/dialog titles */
-  /* Nova's proportional radius scale (components use rounded-xl / rounded-4xl) on the design's 0.5rem base */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -168,7 +163,6 @@
   }
   html {
     font-size: 16px; /* rem stays 16px; UI text is text-sm (14px) */
-    @apply font-sans;
   }
   body {
     @apply bg-background text-foreground text-sm antialiased;
