@@ -20,6 +20,17 @@
 | **L. Student views** | 22 | Assessment list (deadlines, extension shown with original struck through, badges); wrong file type and 11 MB file rejected before upload ("Your v2 is still on file"); upload, replace → v3 "replaces v2"; closed assessment has no upload control; **first submission 2 minutes after a deadline accepted and flagged late** (student receipt and staff roster), and can't be replaced; withdrawn student sees a blocked banner and "Uploads are closed"; results show only published marks (Aisha sees 58, not her withheld mark; Mariam sees 64 after re-publish); account cards, schedule and payments; Chen's £120 credit; phone layout: sidebar hidden, bottom tab bar navigates, no sideways scrolling. |
 | **M. API rules** | 5 + earlier | Student calling staff APIs → 403; withdrawn student upload → 422 `NOT_ENROLLED`; renamed text file → 422 by content; upload to another programme's assessment → 404; invalid role → 400; unknown student → 404; student downloading another student's file → 403. |
 
+## Regression run
+
+After the fixes, the whole pass was re-run as an assertion-based suite: every check states its expected value and is marked pass or fail automatically, and the suite runs in two parts from a fresh seed each time. The late-submission check creates an assessment due two minutes ahead and uploads after the deadline passes during the run.
+
+| Part | Areas | Result |
+|---|---|---|
+| 1 | Shell, dashboard, students, new/edit, profile, status changes, payments, fees | **90 / 90** |
+| 2 | Assessments and marking, results, student views (incl. phone), API rules | **81 / 81** |
+
+**171 / 171 passed.** The browser console showed only the 4xx responses that negative tests trigger on purpose; no runtime errors or warnings.
+
 ## Found by testing, then fixed
 
 | # | Type | What happened | Fix |

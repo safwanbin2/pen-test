@@ -1,3 +1,4 @@
+import { EmptyDatabaseHint } from "@/components/empty-database-hint";
 import { PageHeader } from "@/components/page-header";
 import { academicYearFor, shiftAcademicYear } from "@/lib/domain/academicYear";
 import { ukToday } from "@/lib/domain/time";
@@ -16,6 +17,7 @@ export default async function NewStudentPage() {
         title="New student"
         description="All fields are required. The student ID is assigned when you save."
       />
+      {programmes.length === 0 && <EmptyDatabaseHint what="There are no programmes to enrol students on yet." />}
       <StudentForm
         mode="create"
         programmes={programmes}

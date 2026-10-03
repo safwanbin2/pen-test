@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
 import { Money, Mono } from "@/components/money";
+import { EmptyDatabaseHint } from "@/components/empty-database-hint";
 import { OverdueBadge } from "@/components/status-badge";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
@@ -55,7 +56,7 @@ function QueueLink({
 }
 
 export default async function DashboardPage() {
-  const { today, academicYear, overdue, overdueTotalPence, queues } = await getDashboard();
+  const { studentCount, today, academicYear, overdue, overdueTotalPence, queues } = await getDashboard();
   const oldest = overdue[0]?.account.daysOverdue ?? 0;
 
   return (
@@ -69,6 +70,8 @@ export default async function DashboardPage() {
           </span>
         }
       />
+
+      {studentCount === 0 && <EmptyDatabaseHint what="Nothing to work on yet." />}
 
       <nav aria-label="Work queues" className="grid overflow-hidden rounded-lg border sm:grid-cols-5">
         <QueueLink

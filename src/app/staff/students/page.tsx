@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Plus, SearchX } from "lucide-react";
 import { EmptyRow, TableFrame, Td, Th, THead, Tr } from "@/components/data-table";
 import { Money } from "@/components/money";
+import { EmptyDatabaseHint } from "@/components/empty-database-hint";
 import { PageHeader } from "@/components/page-header";
 import { EnrolmentBadge, OverdueBadge, StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,7 @@ export default async function StudentsPage({ searchParams }: PageProps<"/staff/s
           </Button>
         }
       />
+      {total === 0 && <EmptyDatabaseHint what="No students yet." />}
       <Suspense>
         <StudentFilters filters={filters} countLabel={countLabel} />
       </Suspense>

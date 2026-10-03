@@ -63,6 +63,7 @@ export async function getDashboard() {
   const firstAssessment = (ids: string[]) => ids[0] ?? null;
 
   return {
+    studentCount: students.length,
     today,
     academicYear: academicYearFor(today),
     overdue,

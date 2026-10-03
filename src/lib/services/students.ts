@@ -22,7 +22,10 @@ export async function getCurrentStudent(studentNumber: string | null) {
     const student = await db.student.findUnique({ where: { studentNumber }, include });
     if (student) return student;
   }
-  return db.student.findFirst({ where: { status: "ENROLLED" }, orderBy: { studentNumber: "asc" }, include });
+  return (
+    (await db.student.findFirst({ where: { status: "ENROLLED" }, orderBy: { studentNumber: "asc" }, include })) ??
+    db.student.findFirst({ orderBy: { studentNumber: "asc" }, include })
+  );
 }
 
 export function listStudentsForPicker() {

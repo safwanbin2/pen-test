@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { EmptyRow, TableFrame, Td, Th, THead, Tr } from "@/components/data-table";
 import { Mono } from "@/components/money";
+import { EmptyDatabaseHint } from "@/components/empty-database-hint";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { addDays, daysBetween, ukToday } from "@/lib/domain/time";
@@ -35,6 +36,7 @@ export default async function AssessmentsPage({ searchParams }: PageProps<"/staf
           />
         }
       />
+      {modules.length === 0 && <EmptyDatabaseHint what="No modules yet, so assessments can't be created." />}
       {lateOnly && (
         <p className="text-muted-foreground">
           Showing assessments with late submissions.{" "}

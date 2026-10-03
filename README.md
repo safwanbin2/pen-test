@@ -15,10 +15,20 @@ Requirements: **Node 22+** and a PostgreSQL database. Docker is optional.
 ```bash
 cp .env.example .env     # local-only defaults, no secrets
 npm install              # also generates the Prisma client
-npm run db:up            # or another database option below
-npm run db:setup         # applies migrations and loads the demo data
+
+# 1. Start a database (pick one option below)
+npm run db:up
+
+# 2. Run the app: applies any pending migrations, then starts Next.js
 npm run dev              # http://localhost:3000
+
+# 3. Load the demo data (separately, whenever you want it)
+npm run db:seed
 ```
+
+Without step 3 the app runs on an empty database and each screen says how to load the demo data. Run `npm run db:seed` again at any time to reset to the demo stories below.
+
+**About `npm install`'s audit warning:** `npm audit --omit=dev` reports **0 vulnerabilities** in what the app ships. The "8 high" shown for the full tree are a single advisory in `braces`, which has no patched release yet and is only reached through development tools (ESLint and the shadcn CLI). Two Prisma CLI sub-dependencies are pinned to patched versions via `overrides` in `package.json`.
 
 ### Database: pick one
 
@@ -28,9 +38,9 @@ The app only reads `DATABASE_URL`.
 |---|---|---|---|
 | **A. Docker** (default) | Docker | `npm run db:up` | already set in `.env.example` |
 | **B. No Docker, nothing to install** | only Node | `npm run db:local` (Prisma's embedded Postgres) | uncomment the Option B line in `.env` |
-| **C. Your own Postgres 14+** | local install, Neon, Supabase, … | — | your own connection string |
+| **C. Your own Postgres 14+** | local install, Neon, Supabase, … | — | your own connection string (the database is created on first run if the user may create it) |
 
-`npm run db:check` confirms the connection. `npm run db:seed` resets the demo data at any time.
+`npm run db:check` confirms the connection.
 
 ### Environment variables
 
@@ -45,11 +55,11 @@ The app only reads `DATABASE_URL`.
 
 | Script | What it does |
 |---|---|
-| `npm run dev` / `build` / `start` | Next.js |
+| `npm run dev` | Apply pending migrations, then start Next.js in development |
+| `npm run build` / `start` | Production build / server |
 | `npm run db:up` / `db:down` | Postgres in Docker |
 | `npm run db:local` / `db:local:stop` | Prisma's embedded Postgres (no Docker) |
-| `npm run db:setup` | Migrate and seed (any database) |
-| `npm run db:seed` | Reset the demo data |
+| `npm run db:seed` | Load (or reset to) the demo data |
 | `npm run db:studio` | Browse the data in Prisma Studio |
 | `npm test` | 83 unit tests for the business rules |
 | `npm run lint` / `typecheck` | ESLint / TypeScript |
@@ -139,7 +149,7 @@ docs/                      plan, decisions, UI guide, AI log
 
 ## Decisions and trade-offs
 
-The brief leaves a lot open; every choice is recorded with its reason in [docs/DECISIONS.md](docs/DECISIONS.md) (32 decisions). The ones that matter most:
+The brief leaves a lot open; every choice is recorded with its reason in [docs/DECISIONS.md](docs/DECISIONS.md) (33 decisions). The ones that matter most:
 
 - **Overdue needs due dates (D1).** Fees are split into instalments; only instalments past their due date count as overdue.
 - **Nothing about money is stored as a total (D3, D20).** Balance, overdue amount and "which instalment a payment paid" are derived from charges and payments every time.
