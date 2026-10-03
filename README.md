@@ -77,6 +77,8 @@ The app only reads `DATABASE_URL`.
 - **Submissions:** PDF/DOCX checked by content, 10 MB limit, every version kept. Late is judged against per-student extensions; an on-time file can't be replaced after the deadline; withdrawn and deferred students can't submit. Deadlines are UK time.
 - **Results:** whole-number marks with Fail below 40. Publish or withhold per student and assessment; withholding needs a reason and note. Overdue fees suggest a withhold but never apply one. If a published mark changes, the student keeps seeing the published one until it's re-published.
 
+Every screen works on desktop, tablet (768px) and phone (390px), following the responsive design boards.
+
 Every decision the brief left open is recorded with its reason in [docs/DECISIONS.md](docs/DECISIONS.md). Deliberately out of scope: real authentication, email, attendance and visa monitoring, exam boards, and cloud file storage.
 
 <details>
