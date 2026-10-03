@@ -148,3 +148,4 @@ Exception rows (overdue > 14 days, late, pending result with overdue fees) get `
 - **"Contact Registry"** links to a `mailto:` placeholder address configured in one place.
 - Upload progress uses real progress events if cheap; otherwise an indeterminate "Uploading…" state.
 - Overview / Submissions / Results tabs on the profile and the assessments list page are not designed; build them from the same table and badge patterns.
+- The roster's **"Download all (5)"** button is not built (D31); each submission has its own download.

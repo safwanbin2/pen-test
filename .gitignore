@@ -51,3 +51,6 @@ next-env.d.ts
 
 # local AI agent skill files installed by tooling (not part of the project)
 /.claude/
+
+# browser automation output (screenshots, snapshots)
+/.playwright-mcp/

@@ -7,14 +7,14 @@ How to use it: tell Claude **"do Phase N"**, or **"do Phase N, P0 only"** if you
 | Phase | What | Depends on | Est. (with AI) |
 |---|---|---|---|
 | 0 ✅ | Scaffold & infrastructure | — | 30 min |
-| 1 | Schema, domain rules + tests, seed | 0 | 1.5 h |
-| 2 | App shell, role toggle, API plumbing | 1 | 45 min |
-| 3 | Student Enrolment | 2 | 1.5 h |
-| 4 | Fees & Payments (+ overdue on dashboard) | 3 | 1.5 h |
-| 5 | Assessment Submission | 3 | 2 h |
-| 6 | Marksheet & Results | 4, 5 | 1.5 h |
-| 7 | Registry dashboard worklist | 4, 5, 6 | 45 min |
-| 8 | README, decisions, AI log | all | 45 min |
+| 1 ✅ | Schema, domain rules + tests, seed | 0 | 1.5 h |
+| 2 ✅ | App shell, role toggle, API plumbing | 1 | 45 min |
+| 3 ✅ | Student Enrolment | 2 | 1.5 h |
+| 4 ✅ | Fees & Payments (+ overdue on dashboard) | 3 | 1.5 h |
+| 5 ✅ | Assessment Submission | 3 | 2 h |
+| 6 ✅ | Marksheet & Results | 4, 5 | 1.5 h |
+| 7 ✅ | Registry dashboard worklist | 4, 5, 6 | 45 min |
+| 8 ✅ | README, decisions, AI log | all | 45 min |
 | — | **Minimum complete submission** | | **≈ 10–11 h** |
 | 9 | Polish (pick from the list) | 8 | open |
 
@@ -69,10 +69,10 @@ Features: F-FND-02, F-FND-04, F-FND-08, F-FND-09 (schema covers all P0 + P1 tabl
 - `Module` (code unique, title, level) ↔ `ModuleProgramme` (moduleId, programmeId): modules can be shared across programmes (D19)
 - `Student` (studentNumber unique, fullName, email unique, dateOfBirth, programmeId, academicYear, status enum, fundingSource enum, timestamps)
 - `StudentNumberCounter` (year PK, lastValue)
-- `StatusChange` (studentId, from, to, reason, changedBy, createdAt)
+- ~~`StatusChange`~~ folded into `AuditLog` (D25)
 - `FeeCharge` (studentId, academicYear, description, amountPence) → `Instalment` (feeChargeId, sequence, dueDate, amountPence)
 - `Payment` (studentId, amountPence, paidOn, reference unique, method enum, note, recordedBy)
-- `Assessment` (title, moduleId, deadline, createdBy)
+- `Assessment` (title, moduleId, academicYear, deadline, createdBy): roster rule D26
 - `Extension` (studentId, assessmentId, newDeadline, reason enum, note, grantedBy, unique pair) (D23)
 - `Submission` (studentId, assessmentId, unique pair) → `SubmissionVersion` (version, originalName, storedPath, mimeType, sizeBytes, submittedAt)
 - `Mark` (studentId, assessmentId, unique pair, score Int, markedBy, updatedAt) + release fields **per student per assessment** (D12/D13): releaseStatus enum PENDING/PUBLISHED/WITHHELD/NEEDS_REPUBLISH, publishedScore Int? (snapshot the student sees), withholdReason enum?, releaseNote, releasedBy, releasedAt
@@ -100,7 +100,7 @@ Programmes and fees (2025/26 → 2026/27): BA (Hons) Business Management £9,250
 
 | Student | ID | Programme · funding | Story it demonstrates |
 |---|---|---|---|
-| Aisha Rahman | SMS-2026-0001 | Business · Student Finance | Instalment 2 (£2,383.75) **21 days overdue**; balance £7,151.25; BUS4001 61 Merit, **withheld: Fees outstanding** (by Hannah Price) |
+| Aisha Rahman | SMS-2026-0001 | Business · Student Finance | Instalment 2 (£2,383.75) **21 days overdue**; balance £7,151.25; BUS4002 58 **withheld: Fees outstanding** (by Hannah Price); BUS4001 61 Merit **pending**, so Results shows the overdue-fees alert |
 | Daniel Okafor | SMS-2026-0002 | Business · Self-funded | Paid in full; BUS4001 **v2** resubmitted before deadline; **74 Distinction**, published; BUS4004 v2 receipt |
 | Priya Patel | SMS-2026-0003 | Computing · Sponsor | Balance £8,250 but **nothing due yet**; BUS4001 **35 Fail**, pending |
 | Tom Hughes | SMS-2026-0004 | Law · Self-funded | BUS4001 **late by 1d 3h**; 52 Pass, published; part-paid → £883.75 overdue 4 days |
@@ -166,6 +166,7 @@ Features: F-FEE-01 … F-FEE-12, F-STU-03, F-DSH-01
 Features: F-ASM-01 … F-ASM-13, F-STU-01
 
 - [P0] `/staff/assessments` list + create (`POST /api/assessments`: title, module, deadline as a London-time input → UTC).
+- [P1] Seed sample files for the seeded submissions so downloads work (D27).
 - [P0] `/student/assessments`: assessments for the student's programme, with status: Open / Submitted / Submitted late / Closed / Not submitted.
 - [P0] `POST /api/assessments/[id]/submissions` (multipart): stores the file in `UPLOAD_DIR`, creates or updates the `Submission`, adds a `SubmissionVersion`.
 - [P0] Late badge (red) wherever a submission appears.

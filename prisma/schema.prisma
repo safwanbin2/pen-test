@@ -1,7 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Registry module: enrolment, fees, assessment submission and results.
+// Money is stored in integer pence. Calendar dates (due dates, payment dates,
+// dates of birth) are @db.Date; instants (deadlines, submissions) are UTC timestamps.
+// Academic years are labels like "2026/27".
 
 generator client {
   provider = "prisma-client"
@@ -10,4 +10,328 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum StudentStatus {
+  ENROLLED
+  DEFERRED
+  WITHDRAWN
+  COMPLETED
+}
+
+enum FundingSource {
+  SELF_FUNDED
+  STUDENT_FINANCE
+  SPONSOR
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  CARD
+  STUDENT_FINANCE
+  SPONSOR
+  OTHER
+}
+
+enum ExtensionReason {
+  MITIGATING_CIRCUMSTANCES
+  REASONABLE_ADJUSTMENT
+  TECHNICAL_ISSUE
+  OTHER
+}
+
+enum ReleaseStatus {
+  PENDING
+  PUBLISHED
+  WITHHELD
+  NEEDS_REPUBLISH
+}
+
+enum WithholdReason {
+  FEES_OUTSTANDING
+  ACADEMIC_MISCONDUCT
+  AWAITING_EXAM_BOARD
+  OTHER
+}
+
+enum AuditArea {
+  ENROLMENT
+  FEES
+  SUBMISSIONS
+  RESULTS
+}
+
+// ---------------------------------------------------------------------------
+// Programmes and modules
+// ---------------------------------------------------------------------------
+
+model Programme {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+
+  fees     ProgrammeFee[]
+  modules  ModuleProgramme[]
+  students Student[]
+}
+
+/// Annual tuition fee per programme per academic year (D2). Copied onto a
+/// student's FeeCharge when charged, so later changes never rewrite history.
+model ProgrammeFee {
+  id           String   @id @default(cuid())
+  programmeId  String
+  academicYear String
+  amountPence  Int
+  updatedBy    String
+  updatedAt    DateTime @updatedAt
+
+  programme Programme @relation(fields: [programmeId], references: [id])
+
+  @@unique([programmeId, academicYear])
+}
+
+model Module {
+  id    String @id @default(cuid())
+  code  String @unique
+  title String
+  level Int
+
+  programmes  ModuleProgramme[]
+  assessments Assessment[]
+}
+
+/// Modules can be shared across programmes (D19).
+model ModuleProgramme {
+  moduleId    String
+  programmeId String
+
+  module    Module    @relation(fields: [moduleId], references: [id])
+  programme Programme @relation(fields: [programmeId], references: [id])
+
+  @@id([moduleId, programmeId])
+}
+
+// ---------------------------------------------------------------------------
+// Students
+// ---------------------------------------------------------------------------
+
+model Student {
+  id            String        @id @default(cuid())
+  /// SMS-<year>-<0001>, generated from StudentNumberCounter (D4).
+  studentNumber String        @unique
+  fullName      String
+  /// Stored lower-cased so uniqueness is case-insensitive.
+  email         String        @unique
+  dateOfBirth   DateTime      @db.Date
+  programmeId   String
+  academicYear  String
+  status        StudentStatus @default(ENROLLED)
+  fundingSource FundingSource
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  programme   Programme    @relation(fields: [programmeId], references: [id])
+  feeCharges  FeeCharge[]
+  payments    Payment[]
+  submissions Submission[]
+  extensions  Extension[]
+  marks       Mark[]
+  auditLogs   AuditLog[]
+
+  @@index([status])
+  @@index([programmeId])
+  @@index([academicYear])
+}
+
+/// One row per intake year; incremented inside a transaction so concurrent
+/// enrolments never get the same number, and numbers are never reused (D4).
+model StudentNumberCounter {
+  year      Int @id
+  lastValue Int
+}
+
+// ---------------------------------------------------------------------------
+// Fees and payments (balance is always derived, never stored: D3, D20)
+// ---------------------------------------------------------------------------
+
+model FeeCharge {
+  id           String   @id @default(cuid())
+  studentId    String
+  academicYear String
+  description  String
+  /// Amount at the time of charging (D2).
+  amountPence  Int
+  createdAt    DateTime @default(now())
+
+  student     Student      @relation(fields: [studentId], references: [id])
+  instalments Instalment[]
+
+  @@index([studentId])
+}
+
+model Instalment {
+  id          String    @id @default(cuid())
+  feeChargeId String
+  sequence    Int
+  dueDate     DateTime  @db.Date
+  amountPence Int
+  /// Set when the instalment no longer applies, e.g. after withdrawal (D21).
+  cancelledAt DateTime?
+
+  feeCharge FeeCharge @relation(fields: [feeChargeId], references: [id])
+
+  @@unique([feeChargeId, sequence])
+  @@index([dueDate])
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  studentId   String
+  amountPence Int
+  paidOn      DateTime      @db.Date
+  /// Bank / SFE reference, upper-cased; unique so a payment can't be recorded twice.
+  reference   String        @unique
+  method      PaymentMethod
+  note        String?
+  recordedBy  String
+  createdAt   DateTime      @default(now())
+
+  student Student @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
+}
+
+// ---------------------------------------------------------------------------
+// Assessments and submissions
+// ---------------------------------------------------------------------------
+
+model Assessment {
+  id           String   @id @default(cuid())
+  moduleId     String
+  /// The roster is every student on a programme that includes this module, in this year.
+  academicYear String
+  title        String
+  deadline     DateTime
+  createdBy    String
+  createdAt    DateTime @default(now())
+
+  module      Module       @relation(fields: [moduleId], references: [id])
+  extensions  Extension[]
+  submissions Submission[]
+  marks       Mark[]
+
+  @@index([deadline])
+  @@index([moduleId])
+}
+
+/// Moves one student's deadline for one assessment (D8, D23).
+model Extension {
+  id           String          @id @default(cuid())
+  studentId    String
+  assessmentId String
+  newDeadline  DateTime
+  reason       ExtensionReason
+  /// Staff only; the student sees the new deadline, not the note.
+  note         String
+  grantedBy    String
+  createdAt    DateTime        @default(now())
+
+  student    Student    @relation(fields: [studentId], references: [id])
+  assessment Assessment @relation(fields: [assessmentId], references: [id])
+
+  @@unique([studentId, assessmentId])
+}
+
+/// One per student per assessment; every upload is kept as a version (D6).
+model Submission {
+  id           String   @id @default(cuid())
+  studentId    String
+  assessmentId String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  student    Student             @relation(fields: [studentId], references: [id])
+  assessment Assessment          @relation(fields: [assessmentId], references: [id])
+  versions   SubmissionVersion[]
+
+  @@unique([studentId, assessmentId])
+}
+
+model SubmissionVersion {
+  id           String   @id @default(cuid())
+  submissionId String
+  version      Int
+  originalName String
+  /// Key in the file store (local disk now; swappable for object storage).
+  storageKey   String   @unique
+  mimeType     String
+  sizeBytes    Int
+  submittedAt  DateTime
+
+  submission Submission @relation(fields: [submissionId], references: [id])
+
+  @@unique([submissionId, version])
+}
+
+// ---------------------------------------------------------------------------
+// Marks and result release (per student, per assessment: D12, D13)
+// ---------------------------------------------------------------------------
+
+model Mark {
+  id             String          @id @default(cuid())
+  studentId      String
+  assessmentId   String
+  /// Integer 0–100 (D10). Classification is derived, never stored (D11).
+  score          Int
+  markedBy       String
+  updatedAt      DateTime        @updatedAt
+  releaseStatus  ReleaseStatus   @default(PENDING)
+  /// What the student sees. Snapshot taken at publish, so a later edit is
+  /// invisible to the student until re-published (D13).
+  publishedScore Int?
+  withholdReason WithholdReason?
+  releaseNote    String?
+  releasedBy     String?
+  releasedAt     DateTime?
+
+  student    Student    @relation(fields: [studentId], references: [id])
+  assessment Assessment @relation(fields: [assessmentId], references: [id])
+
+  @@unique([studentId, assessmentId])
+  @@index([releaseStatus])
+}
+
+// ---------------------------------------------------------------------------
+// Audit log: feeds the profile History tab (D5, D22)
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  /// Person or system that acted, e.g. "Hannah Price" / "Registry".
+  actorName  String
+  /// e.g. "Registry Officer", "Automatic", "SFE payment import".
+  actorRole  String
+  area       AuditArea
+  /// Machine-readable, e.g. "student.status_changed", "result.withheld".
+  action     String
+  studentId  String?
+  /// What changed when it isn't the student record itself, e.g. "Instalment 2".
+  subject    String?
+  fromValue  String?
+  toValue    String?
+  /// Enum value for the change, e.g. "FEES_OUTSTANDING".
+  reasonCode String?
+  reason     String?
+  metadata   Json?
+
+  student Student? @relation(fields: [studentId], references: [id])
+
+  @@index([studentId, createdAt])
+  @@index([area])
 }
