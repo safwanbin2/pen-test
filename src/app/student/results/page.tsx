@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { Hourglass } from "lucide-react";
+import { StackLabel } from "@/components/data-table";
 import { Mono } from "@/components/money";
 import { CLASSIFICATION_BANDS } from "@/lib/domain/classification";
 import { formatUkDate, REGISTRY_CONTACT } from "@/lib/format";
 import { getSession } from "@/lib/session";
 import { getStudentResults } from "@/lib/services/results";
 import { getCurrentStudent } from "@/lib/services/students";
+import { cn } from "@/lib/utils";
 
 export const metadata = { title: "My results · Registry" };
 
@@ -38,8 +40,8 @@ export default async function MyResultsPage() {
       ) : (
         <section aria-labelledby="ms-h" className="flex flex-col gap-3">
           <h2 id="ms-h" className="text-base font-semibold">Marksheet</h2>
-          <div className="hidden overflow-hidden rounded-lg border sm:block">
-            <table className="w-full border-collapse text-left">
+          <div className="overflow-hidden rounded-lg border">
+            <table className="table-stack w-full border-collapse text-left">
               <thead className="bg-muted text-xs text-muted-foreground">
                 <tr className="h-9">
                   <th scope="col" className="px-4 font-medium">Assessment</th>
@@ -50,30 +52,23 @@ export default async function MyResultsPage() {
               </thead>
               <tbody>
                 {results.map((r) => (
-                  <tr key={r.id} className="h-12 border-t">
-                    <td className="px-4 font-medium">{r.title}</td>
-                    <td className="px-3"><Mono>{r.module.code}</Mono> <span className="text-muted-foreground">{r.module.title}</span></td>
-                    <td className="px-3 text-right font-mono text-[15px] font-medium">{r.score}</td>
-                    <td className={r.classification === "Fail" ? "px-4 font-semibold" : "px-4"}>{r.classification}</td>
+                  <tr key={r.id} className="h-12 border-t max-sm:[grid-template-areas:'ti_ti'_'md_md'_'mk_cl']">
+                    <td className="px-4 font-medium max-sm:[grid-area:ti]">{r.title}</td>
+                    <td className="px-3 max-sm:text-xs max-sm:[grid-area:md]">
+                      <Mono className="max-sm:text-xs">{r.module.code}</Mono> <span className="text-muted-foreground">{r.module.title}</span>
+                    </td>
+                    <td className="px-3 text-right font-mono text-[15px] font-medium max-sm:[grid-area:mk]">
+                      <StackLabel>Mark</StackLabel>
+                      {r.score}
+                    </td>
+                    <td className={cn("px-4 max-sm:justify-self-end max-sm:[grid-area:cl]", r.classification === "Fail" && "font-semibold")}>
+                      {r.classification}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <ul className="flex flex-col gap-2 sm:hidden">
-            {results.map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-3 rounded-lg border p-3">
-                <span>
-                  <span className="block font-medium">{r.title}</span>
-                  <span className="block text-xs text-muted-foreground"><Mono className="text-xs">{r.module.code}</Mono> {r.module.title}</span>
-                </span>
-                <span className="text-right">
-                  <span className="block font-mono text-lg font-medium">{r.score}</span>
-                  <span className="block text-xs">{r.classification}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
           <p className="text-xs text-muted-foreground">
             {latest ? `Published ${formatUkDate(latest)}. ` : ""}Other marks appear here once they are released. {CLASSIFICATION_BANDS}.
           </p>

@@ -41,7 +41,7 @@ export function HistoryPanel({ logs, area, baseHref }: { logs: AuditLog[]; area?
           <h2 id="hist-h" className="text-base font-semibold">History</h2>
           <p className="text-xs text-muted-foreground">Every change, newest first. Entries can&apos;t be edited or deleted.</p>
         </div>
-        <nav aria-label="Filter by area" className="flex items-center gap-1 text-[13px]">
+        <nav aria-label="Filter by area" className="flex flex-wrap items-center gap-1 text-[13px]">
           <span className="mr-1 text-muted-foreground">Area:</span>
           {[undefined, ...areas].map((a) => (
             <Link
@@ -58,10 +58,10 @@ export function HistoryPanel({ logs, area, baseHref }: { logs: AuditLog[]; area?
           ))}
         </nav>
       </div>
-      <TableFrame label="History">
+      <TableFrame label="History" stack>
         <THead>
           <Th sort="descending">When (UK time)</Th>
-          <Th>Area</Th>
+          <Th className="max-lg:hidden">Area</Th>
           <Th>Change</Th>
           <Th>Reason</Th>
           <Th>By</Th>
@@ -69,10 +69,10 @@ export function HistoryPanel({ logs, area, baseHref }: { logs: AuditLog[]; area?
         <tbody>
           {shown.length === 0 && <EmptyRow colSpan={5}>Nothing recorded in this area yet.</EmptyRow>}
           {shown.map((log) => (
-            <Tr key={log.id}>
-              <Td mono className="align-top">{formatUkDateTime(log.createdAt)}</Td>
-              <Td className="align-top">{AREA_LABEL[log.area]}</Td>
-              <Td className="align-top">
+            <Tr key={log.id} className="max-sm:items-start max-sm:[grid-template-areas:'wh_by'_'ch_ch'_'rs_rs']">
+              <Td mono className="align-top max-sm:[grid-area:wh]">{formatUkDateTime(log.createdAt)}</Td>
+              <Td className="align-top max-lg:hidden">{AREA_LABEL[log.area]}</Td>
+              <Td className="align-top max-sm:[grid-area:ch]">
                 {log.subject && <div className="text-xs text-muted-foreground">{log.subject}</div>}
                 <div className="flex flex-wrap items-center gap-1.5">
                   <Value value={log.fromValue} />
@@ -80,13 +80,13 @@ export function HistoryPanel({ logs, area, baseHref }: { logs: AuditLog[]; area?
                   <Value value={log.toValue} />
                 </div>
               </Td>
-              <Td className="max-w-md align-top">
+              <Td className="max-w-md align-top max-sm:max-w-none max-sm:[grid-area:rs]">
                 {log.reasonCode && REASON_CODE_LABEL[log.reasonCode] && (
                   <StatusBadge tone="neutral" className="mb-1">{REASON_CODE_LABEL[log.reasonCode]}</StatusBadge>
                 )}
                 <div>{log.reason}</div>
               </Td>
-              <Td className="align-top whitespace-nowrap">
+              <Td className="align-top whitespace-nowrap max-sm:justify-self-end max-sm:text-right! max-sm:[grid-area:by]">
                 <div>{log.actorName}</div>
                 <div className="text-xs text-muted-foreground">{log.actorRole}</div>
               </Td>

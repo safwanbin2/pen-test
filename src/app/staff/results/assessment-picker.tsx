@@ -12,10 +12,10 @@ export function AssessmentPicker({
 }) {
   const router = useRouter();
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex min-w-0 items-center gap-2 max-sm:w-full">
       <span id="ap-label" className="text-muted-foreground">Assessment:</span>
       <Select value={value} onValueChange={(id) => router.push(`/staff/results?assessment=${id}`)}>
-        <SelectTrigger aria-labelledby="ap-label" className="min-w-72">
+        <SelectTrigger aria-labelledby="ap-label" className="min-w-72 max-sm:min-w-0 max-sm:flex-1">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

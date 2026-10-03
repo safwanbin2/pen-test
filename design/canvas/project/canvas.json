@@ -1,88 +1,568 @@
 {
-  "v": 3,
-  "attachments": {},
-  "boards": {
-    "AssessmentDetail.dc.html": { "expand": "fill", "h": 900, "is_interactive": true, "title": "Staff · Assessment detail — BUS4001", "w": 1440, "x": 1520, "y": 0 },
-    "ChangeStatus.dc.html": { "expand": "fill", "h": 900, "title": "Staff · Change status dialog — Enrolled → Withdrawn", "w": 1440, "x": 1520, "y": 2960 },
-    "GrantExtension.dc.html": { "expand": "fill", "h": 900, "is_interactive": true, "title": "Staff · Grant extension dialog", "w": 1440, "x": 3040, "y": 0 },
-    "Main.dc.html": { "expand": "fill", "h": 860, "title": "Staff · Dashboard (worklist)", "w": 1440, "x": 0, "y": 0 },
-    "NewStudent.dc.html": { "expand": "fill", "h": 1040, "title": "Staff · New student — validation errors", "w": 1440, "x": 0, "y": 2960 },
-    "StudentHistory.dc.html": { "expand": "fill", "h": 1120, "is_interactive": true, "title": "Staff · Student profile — History tab", "w": 1440, "x": 4560, "y": 1400 },
-    "StudentProfile.dc.html": { "expand": "fill", "h": 1120, "is_interactive": true, "title": "Staff · Student profile — Finance tab", "w": 1440, "x": 3040, "y": 1400 },
-    "StudentsList.dc.html": { "expand": "fill", "h": 900, "is_interactive": true, "title": "Staff · Students list", "w": 1440, "x": 0, "y": 1400 },
-    "StudentsNoResults.dc.html": { "expand": "fill", "h": 900, "title": "Staff · Students list — no results for filters", "w": 1440, "x": 1520, "y": 1400 },
-    "ProgrammeFees.dc.html": { "expand": "fill", "h": 820, "title": "Staff · Programme fees — editing", "w": 1440, "x": 0, "y": 4600 },
-    "RecordPayment.dc.html": { "expand": "fill", "h": 1120, "is_interactive": true, "title": "Staff · Record payment — live new balance", "w": 1440, "x": 1520, "y": 4600 },
-    "RecordPaymentDuplicate.dc.html": { "expand": "fill", "h": 1120, "is_interactive": true, "title": "Staff · Record payment — duplicate reference (409)", "w": 1440, "x": 3040, "y": 4600 },
-    "Toasts.dc.html": { "h": 360, "title": "Staff · Success toasts", "w": 880, "x": 4560, "y": 4600 },
-    "Results.dc.html": { "expand": "fill", "h": 980, "is_interactive": true, "title": "Staff · Results — before (fees alert on Aisha)", "w": 1440, "x": 0, "y": 6140 },
-    "WithholdDialog.dc.html": { "expand": "fill", "h": 980, "is_interactive": true, "title": "Staff · Withhold dialog — prefilled, not automatic", "w": 1440, "x": 1520, "y": 6140 },
-    "ResultsAfter.dc.html": { "expand": "fill", "h": 980, "is_interactive": true, "title": "Staff · Results — after withhold + publish", "w": 1440, "x": 3040, "y": 6140 },
-    "StudentAssessments.dc.html": { "expand": "fill", "h": 900, "title": "Student 1440 · My assessments — Daniel (v2 receipt)", "w": 1440, "x": 0, "y": 7720 },
-    "StudentAssessmentsTom.dc.html": { "expand": "fill", "h": 900, "title": "Student 1440 · My assessments — Tom (late)", "w": 1440, "x": 1520, "y": 7720 },
-    "StudentAssessmentsMariam.dc.html": { "expand": "fill", "h": 900, "title": "Student 1440 · My assessments — Mariam (extension)", "w": 1440, "x": 3040, "y": 7720 },
-    "StudentAssessmentsJames.dc.html": { "expand": "fill", "h": 900, "title": "Student 1440 · My assessments — James (withdrawn, blocked)", "w": 1440, "x": 4560, "y": 7720 },
-    "StudentResults.dc.html": { "expand": "fill", "h": 760, "title": "Student 1440 · My results — Daniel (published)", "w": 1440, "x": 6080, "y": 7720 },
-    "StudentResultsAisha.dc.html": { "expand": "fill", "h": 760, "title": "Student 1440 · My results — Aisha (not released)", "w": 1440, "x": 7600, "y": 7720 },
-    "StudentAccount.dc.html": { "expand": "fill", "h": 1000, "title": "Student 1440 · My account — Aisha", "w": 1440, "x": 9120, "y": 7720 },
-    "UploadStates.dc.html": { "expand": "fill", "h": 520, "title": "Student 1440 · Upload panel — five states", "w": 1440, "x": 10640, "y": 7720 },
-    "MobileAssessmentsDaniel.dc.html": { "expand": "fill", "h": 1400, "title": "390 · Assessments — Daniel", "w": 390, "x": 0, "y": 9140 },
-    "MobileAssessmentsTom.dc.html": { "expand": "fill", "h": 1300, "title": "390 · Assessments — Tom", "w": 390, "x": 470, "y": 9140 },
-    "MobileAssessmentsMariam.dc.html": { "expand": "fill", "h": 1300, "title": "390 · Assessments — Mariam", "w": 390, "x": 940, "y": 9140 },
-    "MobileAssessmentsJames.dc.html": { "expand": "fill", "h": 1300, "title": "390 · Assessments — James", "w": 390, "x": 1410, "y": 9140 },
-    "MobileResultsDaniel.dc.html": { "expand": "fill", "h": 844, "title": "390 · Results — Daniel", "w": 390, "x": 1880, "y": 9140 },
-    "MobileResultsAisha.dc.html": { "expand": "fill", "h": 844, "title": "390 · Results — Aisha", "w": 390, "x": 2350, "y": 9140 },
-    "MobileAccount.dc.html": { "expand": "fill", "h": 1500, "title": "390 · Account — Aisha", "w": 390, "x": 2820, "y": 9140 },
-    "MobileUploadStates.dc.html": { "expand": "fill", "h": 1900, "title": "390 · Upload states", "w": 390, "x": 3290, "y": 9140 }
+ "v": 3,
+ "attachments": {},
+ "boards": {
+  "AssessmentDetail.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "is_interactive": true,
+   "title": "Staff · Assessment detail — BUS4001",
+   "w": 1440,
+   "x": 1520,
+   "y": 0
   },
-  "createdOnFiles": { "at": "2026-10-02T09:00:00Z", "v": 1 },
-  "designSystems": [
-    { "artifact": "https://claude.ai/artifact/DfWPnK6utFT88cmCmEAV1V", "copiedAt": "2026-10-02T09:00:00Z", "namespace": "registry", "title": "Registry", "version": "1790860441-77f5" }
-  ],
-  "launch": { "view": "canvas" },
-  "notes": {
-    "anchors": { "kind": "title1", "maxW": 4480, "text": "Registry — anchor screens · 1440px", "w": 240, "x": 0, "y": -300 },
-    "studentforms": { "kind": "title1", "maxW": 2960, "text": "Students · form and status change", "w": 240, "x": 0, "y": 2660 },
-    "students": { "kind": "title1", "maxW": 6000, "text": "Students · list and profile", "w": 240, "x": 0, "y": 1100 },
-    "fees": { "kind": "title1", "maxW": 5440, "text": "Fees · programme fees and payments", "w": 240, "x": 0, "y": 4300 },
-    "results": { "kind": "title1", "maxW": 4480, "text": "Results · publish and withhold", "w": 240, "x": 0, "y": 5840 },
-    "studentdesk": { "kind": "title1", "maxW": 12080, "text": "Student views · 1440px", "w": 240, "x": 0, "y": 7420 },
-    "studentmobile": { "kind": "title1", "maxW": 3680, "text": "Student views · 390px", "w": 240, "x": 0, "y": 8840 }
+  "ChangeStatus.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Staff · Change status dialog — Enrolled → Withdrawn",
+   "w": 1440,
+   "x": 1520,
+   "y": 2960
   },
-  "order": [
-    "Main.dc.html",
-    "AssessmentDetail.dc.html",
-    "GrantExtension.dc.html",
-    "StudentsList.dc.html",
-    "StudentsNoResults.dc.html",
-    "StudentProfile.dc.html",
-    "StudentHistory.dc.html",
-    "NewStudent.dc.html",
-    "ChangeStatus.dc.html",
-    "ProgrammeFees.dc.html",
-    "RecordPayment.dc.html",
-    "RecordPaymentDuplicate.dc.html",
-    "Toasts.dc.html",
-    "Results.dc.html",
-    "WithholdDialog.dc.html",
-    "ResultsAfter.dc.html",
-    "StudentAssessments.dc.html",
-    "StudentAssessmentsTom.dc.html",
-    "StudentAssessmentsMariam.dc.html",
-    "StudentAssessmentsJames.dc.html",
-    "StudentResults.dc.html",
-    "StudentResultsAisha.dc.html",
-    "StudentAccount.dc.html",
-    "UploadStates.dc.html",
-    "MobileAssessmentsDaniel.dc.html",
-    "MobileAssessmentsTom.dc.html",
-    "MobileAssessmentsMariam.dc.html",
-    "MobileAssessmentsJames.dc.html",
-    "MobileResultsDaniel.dc.html",
-    "MobileResultsAisha.dc.html",
-    "MobileAccount.dc.html",
-    "MobileUploadStates.dc.html"
-  ],
-  "pages": [],
-  "title": "Registry — anchor screens"
+  "GrantExtension.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "is_interactive": true,
+   "title": "Staff · Grant extension dialog",
+   "w": 1440,
+   "x": 3040,
+   "y": 0
+  },
+  "Main.dc.html": {
+   "expand": "fill",
+   "h": 860,
+   "title": "Staff · Dashboard (worklist)",
+   "w": 1440,
+   "x": 0,
+   "y": 0
+  },
+  "NewStudent.dc.html": {
+   "expand": "fill",
+   "h": 1040,
+   "title": "Staff · New student — validation errors",
+   "w": 1440,
+   "x": 0,
+   "y": 2960
+  },
+  "StudentHistory.dc.html": {
+   "expand": "fill",
+   "h": 1120,
+   "is_interactive": true,
+   "title": "Staff · Student profile — History tab",
+   "w": 1440,
+   "x": 4560,
+   "y": 1400
+  },
+  "StudentProfile.dc.html": {
+   "expand": "fill",
+   "h": 1120,
+   "is_interactive": true,
+   "title": "Staff · Student profile — Finance tab",
+   "w": 1440,
+   "x": 3040,
+   "y": 1400
+  },
+  "StudentsList.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "is_interactive": true,
+   "title": "Staff · Students list",
+   "w": 1440,
+   "x": 0,
+   "y": 1400
+  },
+  "StudentsNoResults.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Staff · Students list — no results for filters",
+   "w": 1440,
+   "x": 1520,
+   "y": 1400
+  },
+  "ProgrammeFees.dc.html": {
+   "expand": "fill",
+   "h": 820,
+   "title": "Staff · Programme fees — editing",
+   "w": 1440,
+   "x": 0,
+   "y": 4600
+  },
+  "RecordPayment.dc.html": {
+   "expand": "fill",
+   "h": 1120,
+   "is_interactive": true,
+   "title": "Staff · Record payment — live new balance",
+   "w": 1440,
+   "x": 1520,
+   "y": 4600
+  },
+  "RecordPaymentDuplicate.dc.html": {
+   "expand": "fill",
+   "h": 1120,
+   "is_interactive": true,
+   "title": "Staff · Record payment — duplicate reference (409)",
+   "w": 1440,
+   "x": 3040,
+   "y": 4600
+  },
+  "Toasts.dc.html": {
+   "h": 360,
+   "title": "Staff · Success toasts",
+   "w": 880,
+   "x": 4560,
+   "y": 4600
+  },
+  "Results.dc.html": {
+   "expand": "fill",
+   "h": 980,
+   "is_interactive": true,
+   "title": "Staff · Results — before (fees alert on Aisha)",
+   "w": 1440,
+   "x": 0,
+   "y": 6140
+  },
+  "WithholdDialog.dc.html": {
+   "expand": "fill",
+   "h": 980,
+   "is_interactive": true,
+   "title": "Staff · Withhold dialog — prefilled, not automatic",
+   "w": 1440,
+   "x": 1520,
+   "y": 6140
+  },
+  "ResultsAfter.dc.html": {
+   "expand": "fill",
+   "h": 980,
+   "is_interactive": true,
+   "title": "Staff · Results — after withhold + publish",
+   "w": 1440,
+   "x": 3040,
+   "y": 6140
+  },
+  "StudentAssessments.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Student 1440 · My assessments — Daniel (v2 receipt)",
+   "w": 1440,
+   "x": 0,
+   "y": 7720
+  },
+  "StudentAssessmentsTom.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Student 1440 · My assessments — Tom (late)",
+   "w": 1440,
+   "x": 1520,
+   "y": 7720
+  },
+  "StudentAssessmentsMariam.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Student 1440 · My assessments — Mariam (extension)",
+   "w": 1440,
+   "x": 3040,
+   "y": 7720
+  },
+  "StudentAssessmentsJames.dc.html": {
+   "expand": "fill",
+   "h": 900,
+   "title": "Student 1440 · My assessments — James (withdrawn, blocked)",
+   "w": 1440,
+   "x": 4560,
+   "y": 7720
+  },
+  "StudentResults.dc.html": {
+   "expand": "fill",
+   "h": 760,
+   "title": "Student 1440 · My results — Daniel (published)",
+   "w": 1440,
+   "x": 6080,
+   "y": 7720
+  },
+  "StudentResultsAisha.dc.html": {
+   "expand": "fill",
+   "h": 760,
+   "title": "Student 1440 · My results — Aisha (not released)",
+   "w": 1440,
+   "x": 7600,
+   "y": 7720
+  },
+  "StudentAccount.dc.html": {
+   "expand": "fill",
+   "h": 1000,
+   "title": "Student 1440 · My account — Aisha",
+   "w": 1440,
+   "x": 9120,
+   "y": 7720
+  },
+  "UploadStates.dc.html": {
+   "expand": "fill",
+   "h": 520,
+   "title": "Student 1440 · Upload panel — five states",
+   "w": 1440,
+   "x": 10640,
+   "y": 7720
+  },
+  "MobileAssessmentsDaniel.dc.html": {
+   "expand": "fill",
+   "h": 1400,
+   "title": "390 · Assessments — Daniel",
+   "w": 390,
+   "x": 0,
+   "y": 9140
+  },
+  "MobileAssessmentsTom.dc.html": {
+   "expand": "fill",
+   "h": 1300,
+   "title": "390 · Assessments — Tom",
+   "w": 390,
+   "x": 470,
+   "y": 9140
+  },
+  "MobileAssessmentsMariam.dc.html": {
+   "expand": "fill",
+   "h": 1300,
+   "title": "390 · Assessments — Mariam",
+   "w": 390,
+   "x": 940,
+   "y": 9140
+  },
+  "MobileAssessmentsJames.dc.html": {
+   "expand": "fill",
+   "h": 1300,
+   "title": "390 · Assessments — James",
+   "w": 390,
+   "x": 1410,
+   "y": 9140
+  },
+  "MobileResultsDaniel.dc.html": {
+   "expand": "fill",
+   "h": 844,
+   "title": "390 · Results — Daniel",
+   "w": 390,
+   "x": 1880,
+   "y": 9140
+  },
+  "MobileResultsAisha.dc.html": {
+   "expand": "fill",
+   "h": 844,
+   "title": "390 · Results — Aisha",
+   "w": 390,
+   "x": 2350,
+   "y": 9140
+  },
+  "MobileAccount.dc.html": {
+   "expand": "fill",
+   "h": 1500,
+   "title": "390 · Account — Aisha",
+   "w": 390,
+   "x": 2820,
+   "y": 9140
+  },
+  "MobileUploadStates.dc.html": {
+   "expand": "fill",
+   "h": 1900,
+   "title": "390 · Upload states",
+   "w": 390,
+   "x": 3290,
+   "y": 9140
+  },
+  "MdDashboard.dc.html": {
+   "expand": "fill",
+   "h": 1000,
+   "title": "768 · Dashboard",
+   "w": 768,
+   "x": 0,
+   "y": 11640
+  },
+  "MdStudents.dc.html": {
+   "expand": "fill",
+   "h": 1000,
+   "title": "768 · Students",
+   "w": 768,
+   "x": 848,
+   "y": 11640
+  },
+  "MdProfile.dc.html": {
+   "expand": "fill",
+   "h": 1700,
+   "title": "768 · Student profile",
+   "w": 768,
+   "x": 1696,
+   "y": 11640
+  },
+  "MdAssessment.dc.html": {
+   "expand": "fill",
+   "h": 1100,
+   "title": "768 · Assessment detail",
+   "w": 768,
+   "x": 2544,
+   "y": 11640
+  },
+  "MdResults.dc.html": {
+   "expand": "fill",
+   "h": 1100,
+   "title": "768 · Results",
+   "w": 768,
+   "x": 3392,
+   "y": 11640
+  },
+  "MdFees.dc.html": {
+   "expand": "fill",
+   "h": 860,
+   "title": "768 · Programme fees",
+   "w": 768,
+   "x": 4240,
+   "y": 11640
+  },
+  "MdNewStudent.dc.html": {
+   "expand": "fill",
+   "h": 1200,
+   "title": "768 · New student",
+   "w": 768,
+   "x": 5088,
+   "y": 11640
+  },
+  "MdMyAssessments.dc.html": {
+   "expand": "fill",
+   "h": 1250,
+   "title": "768 · My assessments",
+   "w": 768,
+   "x": 5936,
+   "y": 11640
+  },
+  "MdMyAccount.dc.html": {
+   "expand": "fill",
+   "h": 1150,
+   "title": "768 · My account",
+   "w": 768,
+   "x": 6784,
+   "y": 11640
+  },
+  "SmDashboard.dc.html": {
+   "expand": "fill",
+   "h": 1500,
+   "title": "390 · Dashboard",
+   "w": 390,
+   "x": 0,
+   "y": 13820
+  },
+  "SmStudents.dc.html": {
+   "expand": "fill",
+   "h": 1500,
+   "title": "390 · Students",
+   "w": 390,
+   "x": 470,
+   "y": 13820
+  },
+  "SmProfile.dc.html": {
+   "expand": "fill",
+   "h": 2300,
+   "title": "390 · Student profile",
+   "w": 390,
+   "x": 940,
+   "y": 13820
+  },
+  "SmHistory.dc.html": {
+   "expand": "fill",
+   "h": 1700,
+   "title": "390 · Student history",
+   "w": 390,
+   "x": 1410,
+   "y": 13820
+  },
+  "SmAssessment.dc.html": {
+   "expand": "fill",
+   "h": 1900,
+   "title": "390 · Assessment detail",
+   "w": 390,
+   "x": 1880,
+   "y": 13820
+  },
+  "SmResults.dc.html": {
+   "expand": "fill",
+   "h": 1700,
+   "title": "390 · Results",
+   "w": 390,
+   "x": 2350,
+   "y": 13820
+  },
+  "SmFees.dc.html": {
+   "expand": "fill",
+   "h": 1000,
+   "title": "390 · Programme fees",
+   "w": 390,
+   "x": 2820,
+   "y": 13820
+  },
+  "SmNewStudent.dc.html": {
+   "expand": "fill",
+   "h": 1450,
+   "title": "390 · New student",
+   "w": 390,
+   "x": 3290,
+   "y": 13820
+  },
+  "SmChangeStatus.dc.html": {
+   "expand": "fill",
+   "h": 1000,
+   "title": "390 · Change status dialog",
+   "w": 390,
+   "x": 3760,
+   "y": 13820
+  },
+  "SmRecordPayment.dc.html": {
+   "expand": "fill",
+   "h": 1100,
+   "title": "390 · Record payment dialog",
+   "w": 390,
+   "x": 4230,
+   "y": 13820
+  }
+ },
+ "createdOnFiles": {
+  "at": "2026-10-02T09:00:00Z",
+  "v": 1
+ },
+ "designSystems": [
+  {
+   "artifact": "https://claude.ai/artifact/DfWPnK6utFT88cmCmEAV1V",
+   "copiedAt": "2026-10-02T09:00:00Z",
+   "namespace": "registry",
+   "title": "Registry",
+   "version": "1790860441-77f5"
+  }
+ ],
+ "launch": {
+  "view": "canvas"
+ },
+ "notes": {
+  "anchors": {
+   "kind": "title1",
+   "maxW": 4480,
+   "text": "Registry — anchor screens · 1440px",
+   "w": 240,
+   "x": 0,
+   "y": -300
+  },
+  "studentforms": {
+   "kind": "title1",
+   "maxW": 2960,
+   "text": "Students · form and status change",
+   "w": 240,
+   "x": 0,
+   "y": 2660
+  },
+  "students": {
+   "kind": "title1",
+   "maxW": 6000,
+   "text": "Students · list and profile",
+   "w": 240,
+   "x": 0,
+   "y": 1100
+  },
+  "fees": {
+   "kind": "title1",
+   "maxW": 5440,
+   "text": "Fees · programme fees and payments",
+   "w": 240,
+   "x": 0,
+   "y": 4300
+  },
+  "results": {
+   "kind": "title1",
+   "maxW": 4480,
+   "text": "Results · publish and withhold",
+   "w": 240,
+   "x": 0,
+   "y": 5840
+  },
+  "studentdesk": {
+   "kind": "title1",
+   "maxW": 12080,
+   "text": "Student views · 1440px",
+   "w": 240,
+   "x": 0,
+   "y": 7420
+  },
+  "studentmobile": {
+   "kind": "title1",
+   "maxW": 3680,
+   "text": "Student views · 390px",
+   "w": 240,
+   "x": 0,
+   "y": 8840
+  },
+  "medium": {
+   "kind": "title1",
+   "maxW": 7552,
+   "text": "Responsive · 768px (medium, ≤1024px)",
+   "w": 240,
+   "x": 0,
+   "y": 11340
+  },
+  "small": {
+   "kind": "title1",
+   "maxW": 4590,
+   "text": "Responsive · 390px (small, ≤640px)",
+   "w": 240,
+   "x": 0,
+   "y": 13520
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "AssessmentDetail.dc.html",
+  "GrantExtension.dc.html",
+  "StudentsList.dc.html",
+  "StudentsNoResults.dc.html",
+  "StudentProfile.dc.html",
+  "StudentHistory.dc.html",
+  "NewStudent.dc.html",
+  "ChangeStatus.dc.html",
+  "ProgrammeFees.dc.html",
+  "RecordPayment.dc.html",
+  "RecordPaymentDuplicate.dc.html",
+  "Toasts.dc.html",
+  "Results.dc.html",
+  "WithholdDialog.dc.html",
+  "ResultsAfter.dc.html",
+  "StudentAssessments.dc.html",
+  "StudentAssessmentsTom.dc.html",
+  "StudentAssessmentsMariam.dc.html",
+  "StudentAssessmentsJames.dc.html",
+  "StudentResults.dc.html",
+  "StudentResultsAisha.dc.html",
+  "StudentAccount.dc.html",
+  "UploadStates.dc.html",
+  "MobileAssessmentsDaniel.dc.html",
+  "MobileAssessmentsTom.dc.html",
+  "MobileAssessmentsMariam.dc.html",
+  "MobileAssessmentsJames.dc.html",
+  "MobileResultsDaniel.dc.html",
+  "MobileResultsAisha.dc.html",
+  "MobileAccount.dc.html",
+  "MobileUploadStates.dc.html",
+  "MdDashboard.dc.html",
+  "MdStudents.dc.html",
+  "MdProfile.dc.html",
+  "MdAssessment.dc.html",
+  "MdResults.dc.html",
+  "MdFees.dc.html",
+  "MdNewStudent.dc.html",
+  "MdMyAssessments.dc.html",
+  "MdMyAccount.dc.html",
+  "SmDashboard.dc.html",
+  "SmStudents.dc.html",
+  "SmProfile.dc.html",
+  "SmHistory.dc.html",
+  "SmAssessment.dc.html",
+  "SmResults.dc.html",
+  "SmFees.dc.html",
+  "SmNewStudent.dc.html",
+  "SmChangeStatus.dc.html",
+  "SmRecordPayment.dc.html"
+ ],
+ "pages": [],
+ "title": "Registry — anchor screens"
 }

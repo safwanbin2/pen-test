@@ -25,6 +25,15 @@ a{color:#115e59}a:hover{color:#0b4440}
 .rs-lbl{display:none}
 .rs-tabbar{display:none}
 .navlink:hover{background:#ececee}
+@media (max-width:1024px){
+  .rs-side{width:64px;padding:8px;align-items:center}
+  .rs-side a{font-size:0!important;justify-content:center!important;padding:0!important;width:40px;height:40px!important}
+  .rs-side>div:first-child{font-size:0!important;padding:0!important;justify-content:center}
+  .rs-side>div:first-child::before{content:"R";font-size:16px;font-weight:600}
+  .rs-side>div:nth-child(2){display:none}
+  .rs-main{padding:20px}
+  .rs-split{grid-template-columns:minmax(0,1fr)}
+}
 @media (max-width:640px){
   .rs-side,.rs-dtop,.rs-mhead{display:none}
   .rs-mtop{display:flex;flex-direction:column}

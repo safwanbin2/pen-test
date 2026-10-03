@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Fragment, useState, useTransition } from "react";
 import { TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
+import { StackLabel } from "@/components/data-table";
 import { Money } from "@/components/money";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { apiCall, ClientApiError } from "@/lib/client-api";
 import { parsePounds } from "@/lib/domain/money";
 import { formatGBP } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 type Row = {
   id: string;
@@ -59,8 +61,9 @@ export function FeesTable({ rows, current, previous }: { rows: Row[]; current: s
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border">
-      <table className="w-full border-collapse text-left" aria-label="Programme fees">
+    // Tablets drop "Charged in"; phones show each programme as a card with the two years side by side.
+    <div className="relative overflow-x-auto rounded-lg border">
+      <table className="table-stack w-full border-collapse text-left" aria-label="Programme fees">
         <thead className="bg-muted text-xs text-muted-foreground">
           <tr className="h-9">
             <th scope="col" className="px-3 font-medium">Programme</th>
@@ -68,7 +71,7 @@ export function FeesTable({ rows, current, previous }: { rows: Row[]; current: s
               <span className="font-mono">{previous}</span> · closed
             </th>
             <th scope="col" className="px-3 text-right font-medium font-mono text-foreground">{current}</th>
-            <th scope="col" className="px-3 font-medium">Charged in {current}</th>
+            <th scope="col" className="px-3 font-medium max-lg:hidden">Charged in {current}</th>
             <th scope="col" className="px-3 text-right font-medium">Actions</th>
           </tr>
         </thead>
@@ -79,12 +82,19 @@ export function FeesTable({ rows, current, previous }: { rows: Row[]; current: s
             const keeping = row.chargedStudents.filter((s) => s.amountPence !== pence);
             return (
               <Fragment key={row.id}>
-                <tr className={isEditing ? "border-t bg-primary/5" : "border-t"}>
-                  <td className="h-12 px-3 font-medium">{row.name}</td>
-                  <td className="px-3 text-right text-muted-foreground">
+                <tr
+                  className={cn(
+                    "border-t max-sm:[grid-template-areas:'nm_nm'_'pr_cu'_'ac_ac']",
+                    isEditing && "bg-primary/5",
+                  )}
+                >
+                  <td className="h-12 px-3 font-medium max-sm:[grid-area:nm]">{row.name}</td>
+                  <td className="px-3 text-right text-muted-foreground max-sm:[grid-area:pr]">
+                    <StackLabel>{previous}</StackLabel>
                     {row.previousFee !== null ? <Money pence={row.previousFee} /> : "—"}
                   </td>
-                  <td className="px-3 text-right">
+                  <td className="px-3 text-right max-sm:justify-self-end max-sm:text-right! max-sm:[grid-area:cu]">
+                    <StackLabel>{current}</StackLabel>
                     {isEditing ? (
                       <div className="flex flex-col items-end gap-1 py-2">
                         <label htmlFor={`fee-${row.id}`} className="sr-only">{`${current} fee for ${row.name}`}</label>
@@ -111,12 +121,12 @@ export function FeesTable({ rows, current, previous }: { rows: Row[]; current: s
                       <StatusBadge tone="dashed">Not set</StatusBadge>
                     )}
                   </td>
-                  <td className="px-3 text-muted-foreground">
+                  <td className="px-3 text-muted-foreground max-lg:hidden">
                     {row.chargedStudents.length === 1 ? "1 student" : `${row.chargedStudents.length} students`}
                   </td>
-                  <td className="px-3 text-right">
+                  <td className="px-3 text-right max-sm:[grid-area:ac]">
                     {isEditing ? (
-                      <div className="flex justify-end gap-2">
+                      <div className="flex justify-end gap-2 max-sm:justify-start">
                         <Button variant="outline" size="sm" onClick={() => setEditing(null)}>Cancel</Button>
                         <Button size="sm" onClick={() => save(row)} disabled={pending}>{pending ? "Saving…" : "Save"}</Button>
                       </div>

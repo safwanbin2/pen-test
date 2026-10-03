@@ -140,7 +140,7 @@ export default async function StudentProfilePage({ params, searchParams }: PageP
               </span>
             </span>
           )}
-          {overdueInstalment && withheld.length > 0 && <span aria-hidden className="h-4 w-px bg-border" />}
+          {overdueInstalment && withheld.length > 0 && <span aria-hidden className="h-4 w-px bg-border max-sm:hidden" />}
           {withheld.length > 0 && (
             <span className="inline-flex flex-wrap items-center gap-2">
               <StatusBadge tone="withheld" icon={Lock}>Withheld</StatusBadge>
@@ -233,7 +233,7 @@ function OverviewPanel({ profile, recordPayment }: { profile: Profile; recordPay
   }
   const enrolledLog = [...student.auditLogs].reverse().find((l) => l.action === "student.enrolled");
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <Card title="Enrolment" href={`/staff/students/${student.id}?tab=history`}>
         <dl className="flex flex-col gap-1.5">
           <Row label="Status"><EnrolmentBadge status={student.status} /></Row>
@@ -275,7 +275,7 @@ function OverviewPanel({ profile, recordPayment }: { profile: Profile; recordPay
 async function SubmissionsPanel({ student }: { student: Profile["student"] }) {
   const assessments = await getStudentAssessments(student);
   return (
-    <TableFrame label="Submissions">
+    <TableFrame label="Submissions" stack>
       <THead>
         <Th>Assessment</Th>
         <Th>Deadline (UK time)</Th>
@@ -287,25 +287,25 @@ async function SubmissionsPanel({ student }: { student: Profile["student"] }) {
       <tbody>
         {assessments.length === 0 && <EmptyRow colSpan={6}>No assessments for this student&apos;s programme this year.</EmptyRow>}
         {assessments.map((a) => (
-          <Tr key={a.id} highlight={!!a.late}>
-            <Td>
+          <Tr key={a.id} highlight={!!a.late} className="max-sm:[grid-template-areas:'as_st'_'dl_dl'_'sb_vr'_'fl_fl']">
+            <Td className="max-sm:[grid-area:as]">
               <Link href={`/staff/assessments/${a.id}`} className="font-medium hover:underline">{a.title}</Link>
               <div className="text-xs text-muted-foreground"><Mono className="text-xs">{a.module.code}</Mono> {a.module.title}</div>
             </Td>
-            <Td mono>
+            <Td mono className="max-sm:[grid-area:dl]">
               {formatUkDateTime(a.deadline)}
               {a.extended && <div className="text-xs text-muted-foreground">Extended · was {formatUkDateTime(a.originalDeadline)}</div>}
             </Td>
-            <Td>
+            <Td className="max-sm:justify-self-end max-sm:[grid-area:st]">
               {a.latest ? (
                 <SubmissionBadge state={a.late ? "late" : "submitted"} suffix={a.late ? formatLatenessShort(a.late) : undefined} />
               ) : (
                 <SubmissionBadge state={student.status === "ENROLLED" ? "none" : "closed"} />
               )}
             </Td>
-            <Td mono>{a.latest ? formatUkDateTime(a.latest.submittedAt) : "—"}</Td>
-            <Td mono>{a.latest ? `v${a.latest.version}` : "—"}</Td>
-            <Td>
+            <Td mono className="max-sm:[grid-area:sb]">{a.latest ? formatUkDateTime(a.latest.submittedAt) : "—"}</Td>
+            <Td mono className="max-sm:justify-self-end max-sm:[grid-area:vr]">{a.latest ? `v${a.latest.version}` : "—"}</Td>
+            <Td className="max-sm:[grid-area:fl]">
               {a.latest ? (
                 <a href={`/api/files/${a.latest.id}`} className="inline-flex items-center gap-1 text-primary hover:underline">
                   <Download aria-hidden className="size-3.5" />
@@ -324,7 +324,7 @@ async function SubmissionsPanel({ student }: { student: Profile["student"] }) {
 
 function ResultsPanel({ marks }: { marks: Profile["student"]["marks"] }) {
   return (
-    <TableFrame label="Results">
+    <TableFrame label="Results" stack>
       <THead>
         <Th>Assessment</Th>
         <Th align="right">Mark</Th>
@@ -337,22 +337,22 @@ function ResultsPanel({ marks }: { marks: Profile["student"]["marks"] }) {
         {marks.map((m) => {
           const cls = classify(m.score);
           return (
-            <Tr key={m.id}>
-              <Td>
+            <Tr key={m.id} className="max-sm:[grid-template-areas:'as_mk'_'rl_cl'_'ss_ss']">
+              <Td className="max-sm:[grid-area:as]">
                 <Link href={`/staff/results?assessment=${m.assessmentId}`} className="font-medium hover:underline">
                   {m.assessment.title}
                 </Link>
                 <div className="text-xs text-muted-foreground"><Mono className="text-xs">{m.assessment.module.code}</Mono> {m.assessment.module.title}</div>
               </Td>
-              <Td align="right" mono>{m.score}</Td>
-              <Td className={cls === "Fail" ? "font-semibold" : "text-muted-foreground"}>{cls}</Td>
-              <Td>
+              <Td align="right" mono className="max-sm:justify-self-end max-sm:[grid-area:mk]">{m.score}</Td>
+              <Td className={cn("max-sm:justify-self-end max-sm:[grid-area:cl]", cls === "Fail" ? "font-semibold" : "text-muted-foreground")}>{cls}</Td>
+              <Td className="max-sm:[grid-area:rl]">
                 <span className="flex flex-wrap items-center gap-1.5">
                   <ReleaseBadge status={m.releaseStatus} />
                   {m.withholdReason && <StatusBadge tone="neutral">{WITHHOLD_REASON_LABEL[m.withholdReason]}</StatusBadge>}
                 </span>
               </Td>
-              <Td className="text-muted-foreground">
+              <Td className="text-muted-foreground max-sm:text-xs max-sm:[grid-area:ss]">
                 {m.releaseStatus === "PUBLISHED"
                   ? `${m.publishedScore} (published)`
                   : m.releaseStatus === "NEEDS_REPUBLISH"

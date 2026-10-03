@@ -27,7 +27,7 @@ export function RoleSwitch({ role, compact = false }: { role: Role; compact?: bo
 
   return (
     <div className="flex items-center gap-3">
-      {!compact && <span className="text-xs text-muted-foreground">View as</span>}
+      {!compact && <span className="text-xs text-muted-foreground max-sm:hidden">View as</span>}
       <div role="group" aria-label="Role" className="inline-flex gap-0.5 rounded-md border bg-muted p-0.5">
         {(["staff", "student"] as const).map((r) => (
           <button

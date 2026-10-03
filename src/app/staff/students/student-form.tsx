@@ -149,7 +149,7 @@ export function StudentForm({
         </div>
       )}
 
-      <fieldset className="grid gap-x-4 gap-y-5 rounded-lg border p-5 sm:grid-cols-2">
+      <fieldset className="grid gap-x-4 gap-y-5 rounded-lg border p-5 max-sm:p-4 sm:grid-cols-2">
         <legend className="px-1.5 text-base font-semibold">Personal details</legend>
 
         <div className="flex flex-col gap-1.5">
@@ -209,7 +209,7 @@ export function StudentForm({
         </div>
       </fieldset>
 
-      <fieldset className="grid gap-x-4 gap-y-5 rounded-lg border p-5 sm:grid-cols-2">
+      <fieldset className="grid gap-x-4 gap-y-5 rounded-lg border p-5 max-sm:p-4 sm:grid-cols-2">
         <legend className="px-1.5 text-base font-semibold">Study and funding</legend>
 
         {mode === "create" ? (

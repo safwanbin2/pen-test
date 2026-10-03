@@ -88,9 +88,9 @@ export function Roster({
 
   return (
     <section aria-labelledby="roster-h" className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4 max-sm:flex-col max-sm:items-stretch max-sm:gap-3">
         <h2 id="roster-h" className="text-base font-semibold">Roster and marking</h2>
-        <div role="tablist" aria-label="Filter roster" className="inline-flex gap-0.5 rounded-md border bg-muted p-0.5">
+        <div role="tablist" aria-label="Filter roster" className="inline-flex max-w-full gap-0.5 overflow-x-auto rounded-md border bg-muted p-0.5">
           {([
             ["all", "All"],
             ["late", "Late"],
@@ -104,7 +104,7 @@ export function Roster({
               aria-selected={filter === key}
               onClick={() => setFilter(key)}
               className={cn(
-                "inline-flex h-[26px] items-center gap-1.5 rounded-sm border border-transparent px-2.5 text-[13px] font-medium text-foreground/80",
+                "inline-flex h-[26px] shrink-0 items-center gap-1.5 rounded-sm border border-transparent px-2.5 text-[13px] font-medium text-foreground/80",
                 filter === key && "border-border bg-background text-foreground shadow-xs",
               )}
             >
@@ -113,22 +113,23 @@ export function Roster({
             </button>
           ))}
         </div>
-        <Button variant="outline" className="ml-auto" onClick={() => setExtensionFor(null)}>
+        <Button variant="outline" className="ml-auto max-sm:ml-0" onClick={() => setExtensionFor(null)}>
           <CalendarClock aria-hidden />
           Grant extension
         </Button>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border">
-        <table className="w-full min-w-[1040px] border-collapse text-left" aria-label={`${assessment.code} roster`}>
+      {/* Tablets drop Version and File; phones show each student as a card */}
+      <div className="relative overflow-x-auto rounded-lg border">
+        <table className="table-stack w-full border-collapse text-left max-lg:[&_td]:px-2 max-lg:[&_th]:px-2 lg:min-w-[1040px]" aria-label={`${assessment.code} roster`}>
           <thead className="bg-muted text-xs text-muted-foreground">
             <tr className="h-9">
               <th scope="col" className="px-3 font-medium">Student</th>
               <th scope="col" className="px-3 font-medium">Status</th>
               <th scope="col" className="px-3 font-medium">Submitted (UK time)</th>
-              <th scope="col" className="px-3 font-medium">Version</th>
+              <th scope="col" className="px-3 font-medium max-lg:hidden">Version</th>
               <th scope="col" className="px-3 font-medium">Extension</th>
-              <th scope="col" className="px-3 font-medium">File</th>
+              <th scope="col" className="px-3 font-medium max-lg:hidden">File</th>
               <th scope="col" className="px-3 font-medium">Mark (0–100)</th>
               <th scope="col" className="w-10 px-2"><span className="sr-only">Actions</span></th>
             </tr>
@@ -154,9 +155,15 @@ export function Roster({
                     ? `Resubmitted before deadline · v${r.latest!.version - 1} ${formatUkDayTime(r.previous.submittedAt)}`
                     : "On time";
               return (
-                <tr key={r.student.id} className={cn("h-14 border-t", r.lateBy && "bg-status-late-subtle")}>
-                  <td className="px-3">
-                    <div className="flex items-center gap-1.5">
+                <tr
+                  key={r.student.id}
+                  className={cn(
+                    "h-14 border-t max-sm:[grid-template-areas:'st_ac'_'ss_mk'_'sb_sb'_'ex_fl']",
+                    r.lateBy && "bg-status-late-subtle",
+                  )}
+                >
+                  <td className="px-3 max-sm:[grid-area:st]">
+                    <div className="flex flex-wrap items-center gap-x-1.5">
                       <Link href={`/staff/students/${r.student.id}?tab=submissions`} className="font-medium hover:underline">
                         {r.student.fullName}
                       </Link>
@@ -164,17 +171,17 @@ export function Roster({
                     </div>
                     <div className="font-mono text-xs text-muted-foreground">{r.student.studentNumber}</div>
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-sm:[grid-area:ss]">
                     {r.latest ? (
                       <SubmissionBadge state={r.lateBy ? "late" : "submitted"} suffix={r.lateBy?.short} />
                     ) : (
                       <SubmissionBadge state="none" />
                     )}
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-sm:[grid-area:sb]">
                     {r.latest ? (
                       <>
-                        <div className="font-mono text-[13px]">{formatUkDateTime(r.latest.submittedAt)}</div>
+                        <div className="font-mono text-[13px] whitespace-nowrap">{formatUkDateTime(r.latest.submittedAt)}</div>
                         <div className={cn("text-xs", r.lateBy ? "text-status-late" : "text-muted-foreground")}>{note}</div>
                       </>
                     ) : (
@@ -187,7 +194,7 @@ export function Roster({
                       </div>
                     )}
                   </td>
-                  <td className="px-3 font-mono text-[13px]">
+                  <td className="px-3 font-mono text-[13px] max-lg:hidden">
                     {r.latest ? (
                       <span
                         title={r.previous ? `v${r.latest.version} replaces v${r.latest.version - 1} (${formatUkDayTime(r.previous.submittedAt)})` : "One upload"}
@@ -199,7 +206,7 @@ export function Roster({
                       <span className="text-muted-foreground" aria-label="None">—</span>
                     )}
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-sm:[grid-area:ex]">
                     {r.extension ? (
                       <>
                         <StatusBadge tone="info" suffix={formatUkDayMonth(r.extension.newDeadline)}>Extension</StatusBadge>
@@ -211,7 +218,7 @@ export function Roster({
                       <span className="text-muted-foreground" aria-label="None">—</span>
                     )}
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-lg:hidden max-sm:block max-sm:justify-self-end max-sm:[grid-area:fl]">
                     {r.latest && (
                       <Button asChild variant="ghost" size="sm" title={r.latest.originalName}>
                         <a href={`/api/files/${r.latest.id}`} aria-label={`Download ${r.latest.originalName}`}>
@@ -221,9 +228,9 @@ export function Roster({
                       </Button>
                     )}
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-sm:justify-self-end max-sm:[grid-area:mk]">
                     {r.latest ? (
-                      <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-2.5 max-lg:flex-col max-lg:items-start max-lg:gap-1 max-sm:flex-row max-sm:items-center max-sm:gap-2.5">
                         <input
                           type="text"
                           inputMode="numeric"
@@ -248,7 +255,7 @@ export function Roster({
                       <span className="text-xs text-muted-foreground">{withdrawn ? "Not required" : "No submission"}</span>
                     )}
                   </td>
-                  <td className="px-2">
+                  <td className="px-2 max-sm:justify-self-end max-sm:[grid-area:ac]">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon-sm" aria-label={`More actions for ${r.student.fullName}`}>

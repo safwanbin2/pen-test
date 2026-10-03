@@ -9,6 +9,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme="light"
+      // Phones: full width, above the bottom navigation bar (design: Results 390px).
+      mobileOffset={{ bottom: 72, left: 12, right: 12 }}
       className="toaster group"
       icons={{
         success: (

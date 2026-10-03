@@ -44,7 +44,7 @@ export function StudentFilters({ filters, countLabel }: { filters: FilterDef[]; 
 
   return (
     <div role="search" className="flex flex-wrap items-center gap-2">
-      <div className="relative w-80 max-w-full">
+      <div className="relative w-80 max-w-full max-sm:w-full">
         <Search aria-hidden className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
         <input
           type="search"
@@ -65,12 +65,12 @@ export function StudentFilters({ filters, countLabel }: { filters: FilterDef[]; 
                 type="button"
                 aria-label={`${f.label}: ${selected?.label ?? f.allLabel}`}
                 className={cn(
-                  "inline-flex h-8 items-center gap-1.5 rounded-md border border-input bg-background px-2.5",
+                  "inline-flex h-8 max-w-full items-center gap-1.5 rounded-md border border-input bg-background px-2.5",
                   selected && "border-primary bg-primary/5",
                 )}
               >
                 <span className="text-muted-foreground">{f.label}:</span>
-                <span className={cn(selected && "font-medium")}>{selected?.label ?? f.allLabel}</span>
+                <span className={cn("truncate", selected && "font-medium")}>{selected?.label ?? f.allLabel}</span>
                 <ChevronDown aria-hidden className="size-4 text-muted-foreground" />
               </button>
             </DropdownMenuTrigger>

@@ -125,7 +125,7 @@ export function RecordPaymentDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-2 gap-x-3 gap-y-4">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-4 max-sm:grid-cols-1">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="rp-amount">Amount</Label>
             <div className="relative">

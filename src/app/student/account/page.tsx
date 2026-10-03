@@ -61,8 +61,8 @@ export default async function MyAccountPage() {
 
       <section aria-labelledby="sched-h" className="flex flex-col gap-3">
         <h2 id="sched-h" className="text-base font-semibold">Instalment schedule</h2>
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="w-full min-w-[480px] border-collapse text-left">
+        <div className="relative overflow-x-auto rounded-lg border">
+          <table className="table-stack w-full min-w-[480px] border-collapse text-left">
             <thead className="bg-muted text-xs text-muted-foreground">
               <tr className="h-9">
                 <th scope="col" className="px-4 font-medium">Instalment</th>
@@ -81,9 +81,9 @@ export default async function MyAccountPage() {
                         Instalment {i.sequence}{" "}
                         <span className="text-muted-foreground">· {Math.round((i.amountPence / c.amountPence) * 100)}%</span>
                       </td>
-                      <td className="px-3"><Mono>{formatDate(i.dueDate)}</Mono></td>
+                      <td className="px-3 max-sm:justify-self-end"><Mono>{formatDate(i.dueDate)}</Mono></td>
                       <td className="px-3 text-right"><Money pence={i.amountPence} /></td>
-                      <td className="px-4"><InstalmentBadge status={s.status} daysOverdue={s.daysOverdue} dueDate={i.dueDate} /></td>
+                      <td className="px-4 max-sm:justify-self-end"><InstalmentBadge status={s.status} daysOverdue={s.daysOverdue} dueDate={i.dueDate} /></td>
                     </tr>
                   );
                 }),
@@ -98,8 +98,8 @@ export default async function MyAccountPage() {
 
       <section aria-labelledby="hist-h" className="flex flex-col gap-3">
         <h2 id="hist-h" className="text-base font-semibold">Payment history</h2>
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="w-full min-w-[480px] border-collapse text-left">
+        <div className="relative overflow-x-auto rounded-lg border">
+          <table className="table-stack w-full min-w-[480px] border-collapse text-left">
             <thead className="bg-muted text-xs text-muted-foreground">
               <tr className="h-9">
                 <th scope="col" className="px-4 font-medium">Date</th>
@@ -115,9 +115,9 @@ export default async function MyAccountPage() {
               {payments.map((p) => (
                 <tr key={p.id} className="h-11 border-t">
                   <td className="px-4"><Mono>{formatDate(p.paidOn)}</Mono></td>
-                  <td className="px-3">{PAYMENT_METHOD_LABEL[p.method]}</td>
+                  <td className="px-3 max-sm:justify-self-end max-sm:text-right!">{PAYMENT_METHOD_LABEL[p.method]}</td>
                   <td className="px-3"><Mono>{p.reference}</Mono></td>
-                  <td className="px-4 text-right"><Money pence={p.amountPence} /></td>
+                  <td className="px-4 text-right max-sm:justify-self-end"><Money pence={p.amountPence} /></td>
                 </tr>
               ))}
             </tbody>

@@ -3,10 +3,21 @@
 
 import { cn } from "@/lib/utils";
 
-export function TableFrame({ children, className, label }: { children: React.ReactNode; className?: string; label?: string }) {
+/** `stack`: on phones each row becomes a card (see `.table-stack` in globals.css). */
+export function TableFrame({
+  children,
+  className,
+  label,
+  stack,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  label?: string;
+  stack?: boolean;
+}) {
   return (
-    <div className={cn("overflow-x-auto rounded-lg border", className)}>
-      <table aria-label={label} className="w-full border-collapse text-left">
+    <div className={cn("relative overflow-x-auto rounded-lg border", className)}>
+      <table aria-label={label} className={cn("w-full border-collapse text-left", stack && "table-stack")}>
         {children}
       </table>
     </div>
@@ -89,4 +100,9 @@ export function EmptyRow({ colSpan, children }: { colSpan: number; children: Rea
       </td>
     </tr>
   );
+}
+
+/** A column heading repeated inside the cell on phones, where `stack` hides the header row. */
+export function StackLabel({ children }: { children: React.ReactNode }) {
+  return <span className="mr-1.5 font-sans text-xs text-muted-foreground sm:hidden">{children}</span>;
 }

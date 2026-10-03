@@ -88,7 +88,7 @@ export function FinancePanel({
                     })}
                   </div>
                 </div>
-                <table className="w-full border-collapse border-t text-left" aria-label="Instalments">
+                <table className="table-stack w-full border-collapse border-t text-left" aria-label="Instalments">
                   <thead className="bg-muted text-xs text-muted-foreground">
                     <tr className="h-9">
                       <th scope="col" className="px-4 font-medium">Instalment</th>
@@ -104,21 +104,27 @@ export function FinancePanel({
                       const percent = Math.round((i.amountPence / charge.amountPence) * 100);
                       const cleared = clearedBy.get(i.id) ?? [];
                       return (
-                        <tr key={i.id} className={cn("h-11 border-t", s.status === "OVERDUE" && "bg-status-overdue-subtle")}>
-                          <td className="px-4">
+                        <tr
+                          key={i.id}
+                          className={cn(
+                            "h-11 border-t max-sm:[grid-template-areas:'in_st'_'du_am'_'py_py']",
+                            s.status === "OVERDUE" && "bg-status-overdue-subtle",
+                          )}
+                        >
+                          <td className="px-4 max-sm:[grid-area:in]">
                             {i.sequence} <span className="text-muted-foreground">· {percent}%</span>
                           </td>
-                          <td className="px-3 font-mono text-[13px]">{formatDate(i.dueDate)}</td>
-                          <td className="px-3 text-right">
+                          <td className="px-3 font-mono text-[13px] max-sm:[grid-area:du]">{formatDate(i.dueDate)}</td>
+                          <td className="px-3 text-right max-sm:justify-self-end max-sm:text-right! max-sm:[grid-area:am]">
                             <Money pence={i.amountPence} className={cn(s.status === "OVERDUE" && "font-medium text-status-overdue")} />
                             {s.status !== "PAID" && s.paidPence > 0 && (
                               <div className="text-xs text-muted-foreground"><Money pence={s.remainingPence} className="text-xs" /> left</div>
                             )}
                           </td>
-                          <td className="px-3">
+                          <td className="px-3 max-sm:justify-self-end max-sm:[grid-area:st]">
                             <InstalmentBadge status={s.status} daysOverdue={s.daysOverdue} dueDate={i.dueDate} />
                           </td>
-                          <td className="px-4 text-xs text-muted-foreground">
+                          <td className="px-4 text-xs text-muted-foreground max-sm:[grid-area:py]">
                             {s.status === "PAID" && cleared.length > 0
                               ? cleared.map((p) => `${formatDate(p.paidOn)} · ${p.reference}`).join(", ")
                               : s.status === "OVERDUE"
@@ -141,7 +147,7 @@ export function FinancePanel({
 
         <section aria-labelledby="pay-h" className="flex flex-col gap-3">
           <h2 id="pay-h" className="text-base font-semibold">Payments</h2>
-          <TableFrame label="Payments">
+          <TableFrame label="Payments" stack>
             <THead>
               <Th>Date</Th>
               <Th>Reference</Th>
@@ -152,12 +158,12 @@ export function FinancePanel({
             <tbody>
               {payments.length === 0 && <EmptyRow colSpan={5}>No payments received yet.</EmptyRow>}
               {payments.map((p) => (
-                <Tr key={p.id}>
-                  <Td mono>{formatDate(p.paidOn)}</Td>
-                  <Td mono>{p.reference}</Td>
-                  <Td>{PAYMENT_METHOD_LABEL[p.method]}</Td>
-                  <Td align="right"><Money pence={p.amountPence} /></Td>
-                  <Td className="text-muted-foreground">{p.recordedBy === "Registry" ? "SFE payment import" : p.recordedBy}</Td>
+                <Tr key={p.id} className="max-sm:[grid-template-areas:'dt_am'_'rf_rf'_'me_by']">
+                  <Td mono className="max-sm:[grid-area:dt]">{formatDate(p.paidOn)}</Td>
+                  <Td mono className="max-sm:[grid-area:rf]">{p.reference}</Td>
+                  <Td className="max-sm:text-xs max-sm:text-muted-foreground max-sm:[grid-area:me]">{PAYMENT_METHOD_LABEL[p.method]}</Td>
+                  <Td align="right" className="max-sm:justify-self-end max-sm:[grid-area:am]"><Money pence={p.amountPence} /></Td>
+                  <Td className="text-muted-foreground max-sm:justify-self-end max-sm:text-xs max-sm:[grid-area:by]">{p.recordedBy === "Registry" ? "SFE payment import" : p.recordedBy}</Td>
                 </Tr>
               ))}
             </tbody>
@@ -180,7 +186,7 @@ function BalanceCard({
   withheldNote: boolean;
 }) {
   return (
-    <aside aria-labelledby="bal-h" className="flex h-fit flex-col gap-3 rounded-lg border p-4 lg:sticky lg:top-4">
+    <aside aria-labelledby="bal-h" className="flex h-fit flex-col gap-3 rounded-lg border p-4 max-lg:-order-1 lg:sticky lg:top-4">
       <h2 id="bal-h" className="text-base font-semibold">Balance</h2>
       <dl className="grid grid-cols-[1fr_auto] gap-y-1.5">
         <dt className="text-muted-foreground">Charged</dt>

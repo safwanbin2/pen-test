@@ -30,7 +30,7 @@ export function StudentPicker({
 
   return (
     <div className="flex items-center gap-2">
-      <span id="viewing-as" className="text-xs text-muted-foreground">
+      <span id="viewing-as" className="text-xs whitespace-nowrap text-muted-foreground">
         Viewing as
       </span>
       <Select value={current} onValueChange={choose} disabled={pending}>

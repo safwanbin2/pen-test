@@ -109,6 +109,12 @@ Exception rows (overdue > 14 days, late, pending result with overdue fees) get `
 - < 640px: sidebar and top bar hidden; a compact top header ("Registry · Student · Aisha R." + demo notice + role switch) and a **sticky bottom tab bar** (Assessments, Results, Account). Main padding `p-4 pb-6`, single column.
 - Assessments page: list + 420px side panel (`grid-cols-[minmax(0,1fr)_420px] gap-6`), stacked on mobile.
 
+**Responsive** (boards `Md*` at 768px and `Sm*`/`Mobile*` at 390px; they render the base screens, whose `@media` rules are the spec)
+- ≥ 1024px (`lg`): full layout as above.
+- 640–1024px (`max-lg:`): sidebar becomes a 64px icon rail ("R" brand, labels kept for screen readers), main padding 20px, low-value table columns hidden (`max-lg:hidden`): dashboard Programme/Funding/Last payment, students Year/Funding, roster Version/File, results Programme, fees "Charged in", history Area. Profile finance: balance card moves above the tables.
+- < 640px (`max-sm:`): no sidebar; top bar wraps; sticky 60px bottom navigation (`BottomNav`); page-header actions go full width; tables use `TableFrame stack` / `table-stack` so each row becomes a card laid out with `grid-template-areas` (headings repeated with `StackLabel` where needed); dialogs pin 12px from the top and edges with 16px padding; toasts sit full width above the bottom bar.
+- Shared pieces: `Sidebar`/`BottomNav` in `components/shell/sidebar.tsx`, `.table-stack` in `globals.css`.
+
 **Density and controls**
 - Base text 14px (`text-sm`), line height 20px. Small text 12px/16px.
 - Inputs, selects, buttons: **32px** (`h-8`), `rounded-md` (6px), inputs `border-input shadow-xs px-2.5`. Primary button `bg-primary text-primary-foreground`; outline button `border-input`; destructive `bg-destructive`.

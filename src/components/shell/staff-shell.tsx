@@ -1,7 +1,8 @@
 import { FileText, GraduationCap, LayoutDashboard, PoundSterling, Users } from "lucide-react";
 import { DemoNotice } from "./demo-notice";
-import { SidebarLink, type NavItem } from "./nav-link";
+import type { NavItem } from "./nav-link";
 import { RoleSwitch } from "./role-switch";
+import { BottomNav, Sidebar } from "./sidebar";
 
 const NAV: NavItem[] = [
   { href: "/staff", label: "Dashboard", icon: <LayoutDashboard />, exact: true },
@@ -11,25 +12,20 @@ const NAV: NavItem[] = [
   { href: "/staff/results", label: "Results", icon: <GraduationCap /> },
 ];
 
+/** Sidebar ≥ 1024px, icon rail 640–1024px, top bar + bottom navigation on phones (design: Md*, Sm* boards). */
 export function StaffShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-svh w-full">
-      <aside className="sticky top-0 flex h-svh w-56 shrink-0 flex-col border-r bg-sidebar p-2 pb-3">
-        <div className="mb-2 flex h-10 items-center px-2 text-[15px] font-semibold tracking-tight">Registry</div>
-        <div className="px-2 pb-1 text-xs font-medium text-muted-foreground">Staff</div>
-        <nav aria-label="Staff navigation" className="flex flex-col gap-0.5">
-          {NAV.map((item) => (
-            <SidebarLink key={item.href} item={item} />
-          ))}
-        </nav>
-        <div className="mt-auto border-t p-2 text-xs text-muted-foreground">Signed in as Registry staff (demo)</div>
-      </aside>
+      <Sidebar section="Staff" items={NAV} footer="Signed in as Registry staff (demo)" />
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-12 shrink-0 items-center justify-between gap-4 border-b px-6">
+        <header className="flex h-12 shrink-0 items-center justify-between gap-4 border-b px-6 max-lg:px-5 max-sm:h-auto max-sm:flex-wrap max-sm:gap-2 max-sm:px-3 max-sm:py-2">
           <DemoNotice />
           <RoleSwitch role="staff" />
         </header>
-        <main className="flex flex-col gap-4 px-6 pt-5 pb-10">{children}</main>
+        <main className="flex flex-1 flex-col gap-4 px-6 pt-5 pb-10 max-lg:p-5 max-sm:px-4 max-sm:pt-4 max-sm:pb-6">
+          {children}
+        </main>
+        <BottomNav label="Staff navigation" items={NAV} />
       </div>
     </div>
   );

@@ -183,3 +183,38 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
+/* Phones (< 640px): a `table-stack` table's rows become cards, as in the design's
+   390px boards. Each row sets `max-sm:[grid-template-areas:...]` and each cell its
+   `max-sm:[grid-area:...]`; cells keep their own content. */
+@layer utilities {
+  @media (width < 40rem) {
+    table.table-stack,
+    .table-stack > tbody {
+      display: block;
+      min-width: 0;
+      white-space: normal;
+    }
+    .table-stack > thead {
+      display: none;
+    }
+    .table-stack > tbody > tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 12px;
+      align-items: center;
+      height: auto;
+      padding: 12px 16px;
+    }
+    .table-stack > tbody > tr > td {
+      height: auto;
+      padding: 0;
+      text-align: left;
+    }
+    /* Empty-state rows span the card */
+    .table-stack > tbody > tr > td[colspan] {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+  }
+}

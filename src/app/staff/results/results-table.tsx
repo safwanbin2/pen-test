@@ -86,12 +86,13 @@ export function ResultsTable({ rows, assessmentLabel }: { rows: ResultRow[]; ass
 
   return (
     <>
-      <div className="overflow-x-auto rounded-lg border">
-        <table className="w-full min-w-[960px] border-collapse text-left" aria-label={`Results for ${assessmentLabel}`}>
+      {/* Tablets drop Programme; phones show each student as a card */}
+      <div className="relative overflow-x-auto rounded-lg border">
+        <table className="table-stack w-full border-collapse text-left lg:min-w-[960px]" aria-label={`Results for ${assessmentLabel}`}>
           <thead className="bg-muted text-xs text-muted-foreground">
             <tr className="h-9">
               <th scope="col" className="px-3 font-medium">Student</th>
-              <th scope="col" className="px-3 font-medium">Programme</th>
+              <th scope="col" className="px-3 font-medium max-lg:hidden">Programme</th>
               <th scope="col" className="px-3 font-medium">Mark</th>
               <th scope="col" className="px-3 font-medium">Release status</th>
               <th scope="col" className="px-3 text-right font-medium">Actions</th>
@@ -103,22 +104,22 @@ export function ResultsTable({ rows, assessmentLabel }: { rows: ResultRow[]; ass
             const showFeesAlert = !!row.overdue && !!row.mark && row.mark.releaseStatus === "PENDING";
             return (
               <tbody key={row.studentId} className={cn("border-t", showFeesAlert && "bg-status-overdue-subtle")}>
-                <tr>
-                  <td className="h-14 px-3">
+                <tr className="max-sm:[grid-template-areas:'st_mk'_'ss_ss'_'ac_ac']">
+                  <td className="h-14 px-3 max-sm:[grid-area:st]">
                     <Link href={`/staff/students/${row.studentId}?tab=results`} className="block font-medium hover:underline">
                       {row.name}
                     </Link>
-                    <span className="font-mono text-xs text-muted-foreground">{row.studentNumber}</span>
+                    <span className="font-mono text-xs whitespace-nowrap text-muted-foreground">{row.studentNumber}</span>
                   </td>
-                  <td className="px-3">{row.programme}</td>
-                  <td className="px-3">
+                  <td className="px-3 max-lg:hidden">{row.programme}</td>
+                  <td className="px-3 max-sm:justify-self-end max-sm:text-right! max-sm:[grid-area:mk]">
                     {row.mark ? (
                       <>
                         <span className="font-mono text-[13px]">{row.mark.score}</span>{" "}
                         <span className={row.mark.classification === "Fail" ? "font-semibold" : "text-muted-foreground"}>
                           {row.mark.classification}
                         </span>
-                        <div className="text-xs text-muted-foreground">{row.mark.markNote}</div>
+                        <div className="text-xs whitespace-nowrap text-muted-foreground">{row.mark.markNote}</div>
                       </>
                     ) : (
                       <span className="text-xs text-muted-foreground">
@@ -126,7 +127,7 @@ export function ResultsTable({ rows, assessmentLabel }: { rows: ResultRow[]; ass
                       </span>
                     )}
                   </td>
-                  <td className="px-3">
+                  <td className="px-3 max-sm:[grid-area:ss]">
                     {row.mark ? (
                       <>
                         <span className="flex flex-wrap items-center gap-1.5">
@@ -142,7 +143,7 @@ export function ResultsTable({ rows, assessmentLabel }: { rows: ResultRow[]; ass
                       </>
                     )}
                   </td>
-                  <td className="px-3 text-right">
+                  <td className="px-3 text-right max-sm:[grid-area:ac]">
                     <span className="inline-flex gap-2">
                       {publishAction && (
                         <Button size="sm" onClick={() => publish(row, publishAction)} disabled={pendingId === row.mark?.id}>
@@ -158,11 +159,11 @@ export function ResultsTable({ rows, assessmentLabel }: { rows: ResultRow[]; ass
                   </td>
                 </tr>
                 {showFeesAlert && row.overdue && (
-                  <tr>
-                    <td colSpan={5} className="px-3 pb-3">
+                  <tr className="max-sm:pt-0!">
+                    <td colSpan={5} className="px-3 pb-3 max-sm:text-left!">
                       <div
                         role="alert"
-                        className="grid grid-cols-[16px_1fr_auto] items-center gap-x-3 rounded-lg border border-status-overdue/30 bg-background px-4 py-3"
+                        className="grid grid-cols-[16px_1fr_auto] items-center gap-x-3 rounded-lg border border-status-overdue/30 bg-background px-4 py-3 max-sm:grid-cols-[16px_1fr] max-sm:items-start [&>button]:max-sm:col-start-2 [&>button]:max-sm:mt-2 [&>button]:max-sm:justify-self-start"
                       >
                         <TriangleAlert aria-hidden className="size-4 text-status-overdue" />
                         <div>

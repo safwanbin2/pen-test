@@ -65,14 +65,14 @@ export default async function StudentsPage({ searchParams }: PageProps<"/staff/s
         <StudentFilters filters={filters} countLabel={countLabel} />
       </Suspense>
 
-      <TableFrame label="Students">
+      <TableFrame label="Students" stack>
         <THead>
           <Th sort="ascending">Student ID</Th>
           <Th>Name</Th>
           <Th>Programme</Th>
-          <Th>Year</Th>
+          <Th className="max-lg:hidden">Year</Th>
           <Th>Status</Th>
-          <Th>Funding</Th>
+          <Th className="max-lg:hidden">Funding</Th>
           <Th align="right">Balance</Th>
         </THead>
         <tbody>
@@ -98,19 +98,23 @@ export default async function StudentsPage({ searchParams }: PageProps<"/staff/s
             const a = s.account;
             const note = balanceNote(a, s.status);
             return (
-              <Tr key={s.id} highlight={a.daysOverdue > SEVERE_OVERDUE_DAYS}>
-                <Td mono>{s.studentNumber}</Td>
-                <Td className="max-w-64">
+              <Tr
+                key={s.id}
+                highlight={a.daysOverdue > SEVERE_OVERDUE_DAYS}
+                className="max-sm:[grid-template-areas:'nm_bl'_'id_st'_'pg_pg']"
+              >
+                <Td mono className="max-sm:[grid-area:id]">{s.studentNumber}</Td>
+                <Td className="max-w-64 max-sm:max-w-none max-sm:[grid-area:nm]">
                   <Link href={`/staff/students/${s.id}`} className="block font-medium hover:underline">
                     {s.fullName}
                   </Link>
                   <span className="block truncate text-xs text-muted-foreground">{s.email}</span>
                 </Td>
-                <Td>{s.programme.name}</Td>
-                <Td mono>{s.academicYear}</Td>
-                <Td><EnrolmentBadge status={s.status} /></Td>
-                <Td className="whitespace-nowrap">{FUNDING_LABEL[s.fundingSource]}</Td>
-                <Td align="right">
+                <Td className="max-sm:text-[13px] max-sm:text-foreground/80 max-sm:[grid-area:pg]">{s.programme.name}</Td>
+                <Td mono className="max-lg:hidden">{s.academicYear}</Td>
+                <Td className="max-sm:justify-self-end max-sm:[grid-area:st]"><EnrolmentBadge status={s.status} /></Td>
+                <Td className="whitespace-nowrap max-lg:hidden">{FUNDING_LABEL[s.fundingSource]}</Td>
+                <Td align="right" className="max-sm:justify-self-end max-sm:[grid-area:bl]">
                   <div className="flex flex-col items-end gap-0.5">
                     {a.creditPence > 0 ? (
                       <span className="flex items-center gap-1.5">

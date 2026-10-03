@@ -19,6 +19,7 @@ function QueueLink({
   detail,
   tone,
   current,
+  className,
 }: {
   href: string;
   label: string;
@@ -26,6 +27,7 @@ function QueueLink({
   detail: string;
   tone?: "overdue" | "late" | "withheld";
   current?: boolean;
+  className?: string;
 }) {
   const color =
     count === 0
@@ -42,8 +44,9 @@ function QueueLink({
       href={href}
       aria-current={current ? "true" : undefined}
       className={cn(
-        "flex flex-col gap-0.5 border-b px-4 py-3 last:border-b-0 hover:bg-muted sm:border-r sm:border-b-0 sm:last:border-r-0",
+        "flex min-w-0 flex-col gap-0.5 bg-background px-4 py-3 hover:bg-muted",
         current && "bg-muted shadow-[inset_0_-2px_0_var(--primary)]",
+        className,
       )}
     >
       <span className="text-xs font-medium text-foreground/80">{label}</span>
@@ -73,10 +76,12 @@ export default async function DashboardPage() {
 
       {studentCount === 0 && <EmptyDatabaseHint what="Nothing to work on yet." />}
 
-      <nav aria-label="Work queues" className="grid overflow-hidden rounded-lg border sm:grid-cols-5">
+      {/* 5 across ≥ 1024px, 3 + 2 on tablets, 2 per row on phones; 1px gaps draw the dividers */}
+      <nav aria-label="Work queues" className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-6 lg:grid-cols-5">
         <QueueLink
           href="#overdue"
           current
+          className="sm:col-span-2 lg:col-span-1"
           label="Overdue fees"
           count={queues.overdue.count}
           tone="overdue"
@@ -84,6 +89,7 @@ export default async function DashboardPage() {
         />
         <QueueLink
           href="/staff/assessments?filter=late"
+          className="sm:col-span-2 lg:col-span-1"
           label="Late submissions (7 days)"
           count={queues.late.count}
           tone="late"
@@ -91,18 +97,21 @@ export default async function DashboardPage() {
         />
         <QueueLink
           href={queues.awaitingMarking.assessmentId ? `/staff/assessments/${queues.awaitingMarking.assessmentId}?filter=unmarked` : "/staff/assessments"}
+          className="sm:col-span-2 lg:col-span-1"
           label="Awaiting marking"
           count={queues.awaitingMarking.count}
           detail={queues.awaitingMarking.codes.join(", ") || "All marked"}
         />
         <QueueLink
           href={queues.toPublish.assessmentId ? `/staff/results?assessment=${queues.toPublish.assessmentId}` : "/staff/results"}
+          className="sm:col-span-3 lg:col-span-1"
           label="Marked, not published"
           count={queues.toPublish.count}
           detail={queues.toPublish.count ? `${queues.toPublish.codes.join(", ")} · ready to publish` : "Nothing waiting"}
         />
         <QueueLink
           href={queues.withheld.assessmentId ? `/staff/results?assessment=${queues.withheld.assessmentId}` : "/staff/results"}
+          className="col-span-2 sm:col-span-3 lg:col-span-1"
           label="Withheld results"
           count={queues.withheld.count}
           tone="withheld"
@@ -111,7 +120,7 @@ export default async function DashboardPage() {
       </nav>
 
       <section id="overdue" aria-labelledby="overdue-h" className="flex flex-col gap-3">
-        <div className="flex items-end justify-between gap-4">
+        <div className="flex items-end justify-between gap-4 max-sm:flex-col max-sm:items-start max-sm:gap-1">
           <div>
             <h2 id="overdue-h" className="text-base font-semibold">Overdue fees</h2>
             <p className="text-xs text-muted-foreground">
@@ -124,17 +133,18 @@ export default async function DashboardPage() {
           </Link>
         </div>
 
-        <div className="overflow-x-auto rounded-lg border">
-          <table className="w-full min-w-[960px] border-collapse whitespace-nowrap">
-            <thead className="bg-muted text-left text-xs font-medium text-muted-foreground">
+        <div className="relative overflow-x-auto rounded-lg border">
+          {/* Tablets drop Programme, Funding and Last payment; phones show each student as a card */}
+          <table className="table-stack w-full border-collapse lg:min-w-[960px] lg:whitespace-nowrap">
+            <thead className="bg-muted text-left text-xs font-medium whitespace-nowrap text-muted-foreground">
               <tr className="h-9">
                 <th scope="col" className="px-3 font-medium">Student</th>
                 <th scope="col" className="px-3 font-medium">Student ID</th>
-                <th scope="col" className="px-3 font-medium">Programme</th>
-                <th scope="col" className="px-3 font-medium">Funding</th>
+                <th scope="col" className="px-3 font-medium max-lg:hidden">Programme</th>
+                <th scope="col" className="px-3 font-medium max-lg:hidden">Funding</th>
                 <th scope="col" className="px-3 text-right font-medium">Amount overdue</th>
                 <th scope="col" aria-sort="descending" className="px-3 font-medium">Days overdue ↓</th>
-                <th scope="col" className="px-3 font-medium">Last payment</th>
+                <th scope="col" className="px-3 font-medium max-lg:hidden">Last payment</th>
                 <th scope="col" className="px-3 text-right font-medium"><span className="sr-only">Action</span></th>
               </tr>
             </thead>
@@ -158,8 +168,8 @@ export default async function DashboardPage() {
                       ? { icon: false, text: "Part-paid" }
                       : null;
                 return (
-                  <tr key={student.id} className={cn("h-[52px] border-t", severe && "bg-status-overdue-subtle")}>
-                    <td className="px-3">
+                  <tr key={student.id} className={cn("h-[52px] border-t first:border-t-0 sm:first:border-t", severe && "bg-status-overdue-subtle")}>
+                    <td className="px-3 max-lg:px-2 max-sm:col-span-2">
                       <Link href={`/staff/students/${student.id}?tab=finance`} className="block font-medium hover:underline">
                         {student.fullName}
                       </Link>
@@ -170,14 +180,16 @@ export default async function DashboardPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-3"><Mono>{student.studentNumber}</Mono></td>
-                    <td className="px-3">{student.programme.name}</td>
-                    <td className="px-3">{FUNDING_LABEL[student.fundingSource]}</td>
-                    <td className="px-3 text-right">
+                    <td className="px-3 whitespace-nowrap"><Mono>{student.studentNumber}</Mono></td>
+                    <td className="px-3 max-lg:hidden">{student.programme.name}</td>
+                    <td className="px-3 max-lg:hidden max-sm:block max-sm:justify-self-end max-sm:text-muted-foreground">
+                      {FUNDING_LABEL[student.fundingSource]}
+                    </td>
+                    <td className="px-3 text-right whitespace-nowrap">
                       <Money pence={account.overduePence} className="font-medium text-status-overdue" />
                     </td>
-                    <td className="px-3"><OverdueBadge days={account.daysOverdue} /></td>
-                    <td className="px-3 font-mono text-[13px]">
+                    <td className="px-3 whitespace-nowrap max-sm:justify-self-end"><OverdueBadge days={account.daysOverdue} /></td>
+                    <td className="px-3 font-mono text-[13px] max-lg:hidden">
                       {account.lastPayment ? (
                         <>
                           {formatDate(account.lastPayment.paidOn)}{" "}
@@ -187,8 +199,8 @@ export default async function DashboardPage() {
                         <span className="text-muted-foreground">None</span>
                       )}
                     </td>
-                    <td className="px-3 text-right">
-                      <Button asChild variant="outline" size="sm">
+                    <td className="px-3 text-right max-sm:col-span-2">
+                      <Button asChild variant="outline" size="sm" className="max-sm:h-9 max-sm:w-full">
                         <Link href={`/staff/students/${student.id}?tab=finance&pay=1`}>Record payment</Link>
                       </Button>
                     </td>
