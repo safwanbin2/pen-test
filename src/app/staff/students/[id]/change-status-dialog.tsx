@@ -30,7 +30,14 @@ const CONSEQUENCE: Partial<Record<StudentStatus, { title: string; body: string }
     body: "Student will no longer be able to submit work. Outstanding fees remain payable; instalments not yet due are cancelled.",
   },
   DEFERRED: { title: "Deferring this student", body: "Student can't submit work while deferred. Fees already charged stay on the account." },
-  COMPLETED: { title: "Completing this record", body: "Completed records are final and become read-only." },
+  COMPLETED: {
+    title: "Completing this record",
+    body: "Completed records are final and become read-only. Needs every assessment closed and all submitted work marked. Outstanding fees remain payable.",
+  },
+  ENROLLED: {
+    title: "Enrolling this student",
+    body: "Student can submit work. Their academic year's tuition fee becomes payable: it's charged now if it isn't on the account, and cancelled instalments are reinstated. Dates already passed move to today.",
+  },
 };
 
 export function ChangeStatusDialog({

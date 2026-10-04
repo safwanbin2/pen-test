@@ -82,7 +82,12 @@ export default async function MyAccountPage() {
                         <span className="text-muted-foreground">· {Math.round((i.amountPence / c.amountPence) * 100)}%</span>
                       </td>
                       <td className="px-3 max-sm:justify-self-end"><Mono>{formatDate(i.dueDate)}</Mono></td>
-                      <td className="px-3 text-right"><Money pence={i.amountPence} /></td>
+                      <td className="px-3 text-right">
+                        <Money pence={i.amountPence} />
+                        {s.status !== "PAID" && s.paidPence > 0 && (
+                          <div className="text-xs text-muted-foreground"><Money pence={s.remainingPence} className="text-xs" /> left</div>
+                        )}
+                      </td>
                       <td className="px-4 max-sm:justify-self-end"><InstalmentBadge status={s.status} daysOverdue={s.daysOverdue} dueDate={i.dueDate} /></td>
                     </tr>
                   );

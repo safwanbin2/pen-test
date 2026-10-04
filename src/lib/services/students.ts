@@ -4,13 +4,14 @@ import { db } from "../db";
 import { audit } from "../audit";
 import { conflict, unprocessable } from "../errors";
 import { academicYearFor, academicYearStart } from "../domain/academicYear";
-import { ageOn, checkTransition, MIN_AGE, STATUS_LABEL } from "../domain/enrolment";
+import { ageOn, checkTransition, completionBlockers, MIN_AGE, STATUS_LABEL } from "../domain/enrolment";
 import { formatGBP, splitByPercent, DEFAULT_INSTALMENT_PERCENTS } from "../domain/money";
 import { formatStudentNumber } from "../domain/studentNumber";
 import { calendarDate, ukToday } from "../domain/time";
 import { formatDate } from "../format";
 import type { createStudentInput, updateStudentInput } from "../validation";
 import { getAccount, getAccountSummaries } from "./accounts";
+import { getStudentAssessments } from "./submissions";
 
 // ---------------------------------------------------------------------------
 // The student the demo "Student" role is viewing as
@@ -167,6 +168,34 @@ export function defaultDueDates(academicYear: string, enrolledOn: Date): Date[] 
   );
 }
 
+/** Charge a year's tuition fee in three instalments (25% / 25% / 50%, dates per D28), audited. */
+async function chargeTuition(
+  tx: Prisma.TransactionClient,
+  c: { studentId: string; academicYear: string; programmeName: string; amountPence: number; today: Date },
+) {
+  const amounts = splitByPercent(c.amountPence, DEFAULT_INSTALMENT_PERCENTS);
+  const dueDates = defaultDueDates(c.academicYear, c.today);
+  await tx.feeCharge.create({
+    data: {
+      studentId: c.studentId,
+      academicYear: c.academicYear,
+      description: `Tuition fee · ${c.programmeName}, ${c.academicYear}`,
+      amountPence: c.amountPence,
+      instalments: {
+        create: amounts.map((amountPence, i) => ({ sequence: i + 1, dueDate: dueDates[i], amountPence })),
+      },
+    },
+  });
+  await audit(tx, {
+    area: "FEES",
+    action: "fee.charged",
+    studentId: c.studentId,
+    subject: "Tuition fee",
+    toValue: formatGBP(c.amountPence),
+    reason: `${c.academicYear} fee for ${c.programmeName}, in three instalments (25% / 25% / 50%).`,
+  });
+}
+
 export async function createStudent(input: z.infer<typeof createStudentInput>) {
   const fields = await checkStudentFields(input);
   const programme = await db.programme.findUnique({ where: { id: input.programmeId } });
@@ -213,27 +242,7 @@ export async function createStudent(input: z.infer<typeof createStudentInput>) {
       reason: "Created in Registry.",
     });
     if (input.status === "ENROLLED" && fee) {
-      const amounts = splitByPercent(fee.amountPence, DEFAULT_INSTALMENT_PERCENTS);
-      const dueDates = defaultDueDates(input.academicYear, today);
-      await tx.feeCharge.create({
-        data: {
-          studentId: student.id,
-          academicYear: input.academicYear,
-          description: `Tuition fee · ${programme.name}, ${input.academicYear}`,
-          amountPence: fee.amountPence,
-          instalments: {
-            create: amounts.map((amountPence, i) => ({ sequence: i + 1, dueDate: dueDates[i], amountPence })),
-          },
-        },
-      });
-      await audit(tx, {
-        area: "FEES",
-        action: "fee.charged",
-        studentId: student.id,
-        subject: "Tuition fee",
-        toValue: formatGBP(fee.amountPence),
-        reason: `${input.academicYear} fee for ${programme.name}, in three instalments (25% / 25% / 50%).`,
-      });
+      await chargeTuition(tx, { studentId: student.id, academicYear: input.academicYear, programmeName: programme.name, amountPence: fee.amountPence, today });
     }
     return student;
   });
@@ -267,6 +276,8 @@ export async function updateStudent(id: string, input: z.infer<typeof updateStud
 /**
  * Change enrolment status with a reason (F-ENR-08). Withdrawing cancels
  * instalments not yet due; instalments already due stay payable (D21).
+ * Enrolling charges the year's fee or reinstates cancelled instalments (D36);
+ * completing needs all assessment work finished (D37).
  */
 export async function changeStatus(id: string, to: StudentStatus, reason: string) {
   const student = await db.student.findUnique({ where: { id } });
@@ -274,6 +285,36 @@ export async function changeStatus(id: string, to: StudentStatus, reason: string
   const check = checkTransition(student.status, to, reason);
   if (!check.ok) throw unprocessable(check.message, { status: check.message });
   const today = ukToday();
+
+  if (to === "COMPLETED") {
+    const work = await getStudentAssessments(student);
+    const blockers = completionBlockers(
+      work.map((a) => ({ label: `${a.module.code} ${a.title}`, isOpen: a.isOpen, submitted: !!a.latest, marked: a.marked })),
+    );
+    if (blockers.length) {
+      const message = `Can't complete yet. Assessment work is unfinished: ${blockers.join("; ")}.`;
+      throw unprocessable(message, { status: message });
+    }
+  }
+
+  // Becoming Enrolled (from Deferred, or re-admission after withdrawal) makes the year's fee payable (D36).
+  const charge =
+    to === "ENROLLED"
+      ? await db.feeCharge.findFirst({
+          where: { studentId: id, academicYear: student.academicYear },
+          include: { instalments: { where: { cancelledAt: { not: null } }, orderBy: { sequence: "asc" } } },
+        })
+      : null;
+  const programme = to === "ENROLLED" && !charge ? await db.programme.findUniqueOrThrow({ where: { id: student.programmeId } }) : null;
+  const fee = programme
+    ? await db.programmeFee.findUnique({
+        where: { programmeId_academicYear: { programmeId: programme.id, academicYear: student.academicYear } },
+      })
+    : null;
+  if (programme && !fee) {
+    const message = `No ${student.academicYear} fee is set for ${programme.name}. Add it in Fees first.`;
+    throw unprocessable(message, { status: message });
+  }
 
   return db.$transaction(async (tx) => {
     const updated = await tx.student.update({ where: { id }, data: { status: to } });
@@ -285,6 +326,23 @@ export async function changeStatus(id: string, to: StudentStatus, reason: string
       toValue: STATUS_LABEL[to],
       reason: reason.trim(),
     });
+    if (programme && fee) {
+      await chargeTuition(tx, { studentId: id, academicYear: student.academicYear, programmeName: programme.name, amountPence: fee.amountPence, today });
+    }
+    // Re-admission: instalments cancelled at withdrawal are payable again; past dates move to today (D28).
+    for (const inst of charge?.instalments ?? []) {
+      const dueDate = inst.dueDate < today ? today : inst.dueDate;
+      await tx.instalment.update({ where: { id: inst.id }, data: { cancelledAt: null, dueDate } });
+      await audit(tx, {
+        area: "FEES",
+        action: "instalment.reinstated",
+        studentId: id,
+        subject: `Instalment ${inst.sequence}`,
+        fromValue: "Cancelled",
+        toValue: "Due",
+        reason: `Re-enrolled, so this instalment is payable again (due ${formatDate(dueDate)}).`,
+      });
+    }
     if (to === "WITHDRAWN") {
       // Cancel only future instalments with nothing paid against them. Money already
       // received stays where it is: refunds are a finance decision, not an automatic one (D21).

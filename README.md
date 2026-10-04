@@ -65,7 +65,7 @@ The app only reads `DATABASE_URL`.
 | `npm run db:local` / `db:local:stop` | Prisma's embedded Postgres (no Docker) |
 | `npm run db:seed` | Load (or reset to) the demo data |
 | `npm run db:studio` | Browse the data in Prisma Studio |
-| `npm test` | 83 unit tests for the business rules |
+| `npm test` | 86 unit tests for the business rules |
 | `npm run lint` / `typecheck` | ESLint / TypeScript |
 
 ---
@@ -105,7 +105,7 @@ design/, docs/             UI design source, plan, decisions, UI guide, test rep
 
 - Every change goes through the API routes below; errors return `{ error: { code, message, fields? } }`.
 - Sensitive changes (status, payments, fees, extensions, results) write an audit entry in the same transaction.
-- Tests: 83 unit tests for the business rules (`npm test`); browser test results in [docs/TESTING.md](docs/TESTING.md).
+- Tests: 86 unit tests for the business rules (`npm test`); browser test results in [docs/TESTING.md](docs/TESTING.md).
 
 | Method | Route | Role | Purpose |
 |---|---|---|---|

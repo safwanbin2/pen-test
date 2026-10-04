@@ -3,7 +3,7 @@
 import { describe, expect, it } from "vitest";
 import { academicYearFor, academicYearStart, shiftAcademicYear } from "./academicYear";
 import { classify, isValidMark } from "./classification";
-import { ageOn, checkTransition } from "./enrolment";
+import { ageOn, checkTransition, completionBlockers } from "./enrolment";
 import { formatGBP, parsePounds } from "./money";
 import { availableReleaseActions, releaseStatusAfterMarkChange, studentVisibleScore } from "./results";
 import { formatStudentNumber, parseStudentNumber } from "./studentNumber";
@@ -50,6 +50,25 @@ describe("checkTransition", () => {
 
   it("allows re-admitting a withdrawn student", () => {
     expect(checkTransition("WITHDRAWN", "ENROLLED", "Re-admitted after appeal")).toEqual({ ok: true });
+  });
+});
+
+describe("completionBlockers", () => {
+  const work = (label: string, isOpen: boolean, submitted: boolean, marked: boolean) => ({ label, isOpen, submitted, marked });
+
+  it("allows completion when every piece of work is marked or was never submitted", () => {
+    expect(completionBlockers([work("BUS4001 Report", false, true, true), work("BUS4002 Presentation", false, false, false)])).toEqual([]);
+  });
+
+  it("blocks while an assessment is still open, even if something was submitted", () => {
+    expect(completionBlockers([work("BUS4003 Essay", true, true, false)])).toEqual(["still open for submission: BUS4003 Essay"]);
+  });
+
+  it("blocks while submitted work has no mark", () => {
+    expect(completionBlockers([work("BUS4001 Report", false, true, false), work("BUS4004 Case Study", true, false, false)])).toEqual([
+      "still open for submission: BUS4004 Case Study",
+      "submitted but not marked: BUS4001 Report",
+    ]);
   });
 });
 
