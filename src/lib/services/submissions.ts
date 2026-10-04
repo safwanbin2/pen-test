@@ -53,6 +53,7 @@ export async function getStudentAssessments(student: Student) {
       dueSoon: now <= deadline && deadline.getTime() - now.getTime() < 3 * 86_400_000,
       canUpload: check.ok,
       blockedReason: check.ok ? null : check.message,
+      marked: !!mark,
       markPublished: mark ? studentVisibleScore(mark) !== null : false,
     };
   });

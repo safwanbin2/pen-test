@@ -1,6 +1,6 @@
 # End-to-end test report
 
-**How:** every feature was exercised in a real Chromium browser driven by Playwright (through Claude Code's Playwright MCP), starting from a fresh `npm run db:seed`. Each check performed the action a Registry user or student would (clicking, typing, uploading files) and read back what the page showed. API rules were also probed directly to confirm they hold without the UI. Unit tests (`npm test`, 83) cover the business rules separately.
+**How:** every feature was exercised in a real Chromium browser driven by Playwright (through Claude Code's Playwright MCP), starting from a fresh `npm run db:seed`. Each check performed the action a Registry user or student would (clicking, typing, uploading files) and read back what the page showed. API rules were also probed directly to confirm they hold without the UI. Unit tests (`npm test`, 86) cover the business rules separately.
 
 **Result:** 137 checks across 13 areas, all passing after fixes. Testing found **3 bugs and 4 rough edges**, all fixed and re-tested (listed at the end). The browser logged no runtime errors; the only console errors were the 4xx responses that negative tests caused on purpose.
 
